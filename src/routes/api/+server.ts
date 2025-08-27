@@ -1,17 +1,11 @@
-import { json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
-import _ from 'lodash';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = ({ request }) => {
-	// create a JSON Response using a header we received
+export const GET: RequestHandler = async ({ request }) => {
 	return json(
 		{
-			// retrieve a specific header
-			userAgent: request.headers.get('user-agent'),
-			test: _.clone('test lodash')
+			userAgent: request.headers.get('user-agent')
 		},
 		{
-			// set a header on the response
 			headers: { 'x-custom-header': 'potato' }
 		}
 	);
