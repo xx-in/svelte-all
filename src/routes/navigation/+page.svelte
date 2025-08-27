@@ -82,119 +82,15 @@
 
 	async function init() {
 		await handleGetList();
-		// const data = [
-		// 	{
-		// 		href: 'http://localhost:5173/navigation',
-		// 		category: '编程',
-		// 		icon: 'http://localhost:5173/xx.svg',
-		// 		title: '网址导航'
-		// 	},
-		// 	{
-		// 		href: 'https://svelte-all.deno.dev/',
-		// 		category: '编程',
-		// 		icon: 'https://svelte-all.deno.dev/xx.svg',
-		// 		title: '首页'
-		// 	},
-		// 	{
-		// 		href: 'https://juejin.cn/',
-		// 		category: '编程',
-		// 		icon: 'https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/favicons/apple-touch-icon.png',
-		// 		title: '稀土掘金'
-		// 	},
-		// 	{
-		// 		href: 'https://dash.deno.com/playground/svelte-kv',
-		// 		category: '编程',
-		// 		icon: 'https://dash.deno.com/assets/logo.svg?v=173gvenchzef',
-		// 		title: 'deno kv '
-		// 	},
-		// 	{
-		// 		href: 'https://github.com/',
-		// 		category: '编程',
-		// 		icon: 'https://github.githubassets.com/pinned-octocat.svg',
-		// 		title:
-		// 			'GitHub · Build and ship software on a single, collaborative platform · GitHubAmerican AirlinesDuolingoErnst and YoungFordInfoSysMercado LibreMercedes-BenzShopifyPhilipsSociété GénéraleSpotifyVodafoneAmerican AirlinesDuolingoErnst and YoungFordInfoSysMercado LibreMercedes-BenzShopifyPhilipsSociété GénéraleSpotifyVodafoneInstagramTikTokTwitch'
-		// 	},
-		// 	{
-		// 		href: 'https://dash.deno.com',
-		// 		category: '编程',
-		// 		icon: 'https://dash.deno.com/assets/logo.svg?v=173gvenchzef',
-		// 		title: 'Deno Deploy'
-		// 	},
-		// 	{
-		// 		href: 'https://deno.com/deploy',
-		// 		category: '编程',
-		// 		icon: 'https://deno.com/favicon.ico?__frsh_c=8cd0085ad698cd374294078523d22a7f4dc59831',
-		// 		title: 'Deno Deploylogo'
-		// 	},
-		// 	{
-		// 		href: 'https://www.npmjs.com/',
-		// 		category: '编程',
-		// 		icon: 'https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png',
-		// 		title: 'npm | Home'
-		// 	},
-		// 	{
-		// 		href: 'https://dash.deno.com/account/overview',
-		// 		category: '编程',
-		// 		icon: 'https://dash.deno.com/favicon.ico',
-		// 		title: 'Deno Deploy'
-		// 	},
-		// 	{
-		// 		href: 'https://docs.deno.com/deploy/kv/manual/',
-		// 		category: '编程',
-		// 		icon: 'https://docs.deno.com/apple-touch-icon.png',
-		// 		title: 'Deno KV Quick Start'
-		// 	},
-		// 	{
-		// 		href: 'https://tailwindcss.com/',
-		// 		category: '编程',
-		// 		icon: 'https://tailwindcss.com/favicons/apple-touch-icon.png?v=4',
-		// 		title: 'Tailwind CSS - Rapidly build modern websites without ever leaving your HTML.'
-		// 	},
-		// 	{
-		// 		href: 'https://mirrors.tuna.tsinghua.edu.cn/',
-		// 		category: '编程',
-		// 		icon: 'https://mirrors.tuna.tsinghua.edu.cn/static/img/favicon.png',
-		// 		title:
-		// 			'清华大学开源软件镜像站 | Tsinghua Open Source Mirrorbarscubecircle-questiongithubbullhornangles-rightlinkfile-zipperenvelopearrow-up-right-from-squarepaperclipenvelopehashtagweibo'
-		// 	},
-		// 	{
-		// 		href: 'https://caniuse.com/',
-		// 		category: '编程',
-		// 		icon: 'https://caniuse.com/img/favicon-128.png',
-		// 		title: 'Can I use... Support tables for HTML5, CSS3, etc'
-		// 	},
-		// 	{
-		// 		href: 'https://svelte.dev/',
-		// 		category: '编程',
-		// 		icon: 'https://svelte.dev/favicon.png',
-		// 		title: 'Svelte • Web development for the rest of us'
-		// 	},
-		// 	{
-		// 		href: 'https://icon-sets.iconify.design/',
-		// 		category: '编程',
-		// 		icon: 'https://icon-sets.iconify.design/apple-touch-icon.png',
-		// 		title: 'Iconify - home of open source icons'
-		// 	},
-		// 	{
-		// 		href: 'https://bun.sh/',
-		// 		category: '编程',
-		// 		icon: 'https://bun.sh/icons/apple-touch-icon-152x152.png',
-		// 		title: 'Bun — A fast all-in-one JavaScript runtime'
-		// 	},
-		// 	{
-		// 		href: 'https://www.freecodecamp.org/',
-		// 		category: '编程',
-		// 		icon: 'https://www.freecodecamp.org/icons/icon-72x72.png?v=6cba562cbd10e31af925a976f3db73f7',
-		// 		title: 'freecodecamp'
-		// 	}
-		// ];
+	}
 
-		// data.forEach((item) => {
-		// 	POST('/api/kv', {
-		// 		operate: 'set',
-		// 		params: [['linkItem', item.category, item.href], item]
-		// 	});
-		// });
+	function toProxyPath(item: ILinkItem) {
+		const { hostname } = new URL(item.href);
+		// 防止死循环
+		if (hostname == location.hostname) {
+			return item.icon;
+		}
+		return `/api/tools/proxy?url=${item.icon}`;
 	}
 </script>
 
@@ -210,7 +106,7 @@
 			href={linkItem.href}
 			target="_blank"
 		>
-			<img src={`/api/tools/proxy?url=${linkItem.icon}`} alt="" class="size-10" />
+			<img src={toProxyPath(linkItem)} alt="" class="size-10" />
 			<div class="w-40 truncate px-4 text-center">{linkItem.title}</div>
 			<!-- <div>{linkItem.key}</div> -->
 		</a>
