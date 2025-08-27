@@ -1,17 +1,22 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import * as cheerio from 'cheerio';
 
-function extractShortcutIcon(html: string, baseUrl?: string): string | null {
+function extractShortcutIcon(html: string, baseUrl?: string) {
+	console.log(html);
 	const $ = cheerio.load(html);
+	const title = $('title').text();
 	const candidates: Array<{ rel: string; href: string; sizes?: string; type?: string }> = [];
 
 	$('link[rel]').each((_, el) => {
 		const rel = ($(el).attr('rel') || '').toLowerCase();
 		const href = $(el).attr('href');
+		console.log(rel);
+
 		if (!href) return;
 
 		// 关注几类常见图标
 		if (
+			rel.includes('icon') ||
 			rel.includes('shortcut icon') ||
 			/\bicon\b/.test(rel) ||
 			rel.includes('apple-touch-icon') ||
@@ -26,7 +31,17 @@ function extractShortcutIcon(html: string, baseUrl?: string): string | null {
 		}
 	});
 
-	if (candidates.length === 0) return null;
+	console.log(
+		'??candidates',
+		candidates.map((item) => item.href)
+	);
+
+	if (candidates.length === 0) {
+		return {
+			title,
+			icon: ''
+		};
+	}
 
 	// 简单打分：shortcut icon > icon > apple-touch > mask；带尺寸更优；favicon.ico 小加分；svg 小加分
 	const score = (c: any) => {
@@ -45,10 +60,14 @@ function extractShortcutIcon(html: string, baseUrl?: string): string | null {
 		}
 		return s;
 	};
+	const sorted = candidates.sort((a, b) => score(b) - score(a));
 
-	const best = candidates.sort((a, b) => score(b) - score(a))[0];
+	const best = sorted[0];
 	const abs = baseUrl ? new URL(best.href, baseUrl).toString() : best.href;
-	return abs;
+	return {
+		icon: abs,
+		title
+	};
 }
 /**
  * 获取 target 路径中的图标文件
@@ -56,9 +75,16 @@ function extractShortcutIcon(html: string, baseUrl?: string): string | null {
  * @returns
  */
 export const POST: RequestHandler = async ({ request }) => {
-	const { target } = await request.json();
-	const res = await fetch(target);
-	const html = await res.text();
-	const faviconPath = extractShortcutIcon(html, target);
-	return json(faviconPath);
+	try {
+		const { target } = await request.json();
+		const res = await fetch(target);
+		const html = await res.text();
+		const result = extractShortcutIcon(html, target);
+		return json(result);
+	} catch (err) {
+		return json({
+			icon: '',
+			title: ''
+		});
+	}
 };
