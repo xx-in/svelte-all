@@ -2,7 +2,6 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 import * as cheerio from 'cheerio';
 
 function extractShortcutIcon(html: string, baseUrl?: string) {
-	console.log(html);
 	const $ = cheerio.load(html);
 	const title = $('title').text();
 	const candidates: Array<{ rel: string; href: string; sizes?: string; type?: string }> = [];
@@ -10,7 +9,6 @@ function extractShortcutIcon(html: string, baseUrl?: string) {
 	$('link[rel]').each((_, el) => {
 		const rel = ($(el).attr('rel') || '').toLowerCase();
 		const href = $(el).attr('href');
-		console.log(rel);
 
 		if (!href) return;
 
@@ -31,15 +29,10 @@ function extractShortcutIcon(html: string, baseUrl?: string) {
 		}
 	});
 
-	console.log(
-		'??candidates',
-		candidates.map((item) => item.href)
-	);
-
 	if (candidates.length === 0) {
 		return {
 			title,
-			icon: ''
+			icon: `/api/tools/proxy?url=${new URL('favicon.ico', baseUrl).toString()}`
 		};
 	}
 
@@ -65,7 +58,7 @@ function extractShortcutIcon(html: string, baseUrl?: string) {
 	const best = sorted[0];
 	const abs = baseUrl ? new URL(best.href, baseUrl).toString() : best.href;
 	return {
-		icon: abs,
+		icon: `/api/tools/proxy?url=${abs}`,
 		title
 	};
 }
@@ -75,15 +68,15 @@ function extractShortcutIcon(html: string, baseUrl?: string) {
  * @returns
  */
 export const POST: RequestHandler = async ({ request }) => {
+	const { target } = await request.json();
 	try {
-		const { target } = await request.json();
 		const res = await fetch(target);
 		const html = await res.text();
 		const result = extractShortcutIcon(html, target);
 		return json(result);
 	} catch (err) {
 		return json({
-			icon: '',
+			icon: `/api/tools/proxy?url=${new URL('favicon.ico', target).toString()}`,
 			title: ''
 		});
 	}

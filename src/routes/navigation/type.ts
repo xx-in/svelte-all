@@ -13,7 +13,7 @@ export interface ILinkItem {
  * 新增数据的类型
  */
 export type ILinkAppendItem = Record<
-	string,
+	'href' | 'icon' | 'title' | 'category',
 	{
 		label: string;
 		placeholder: string;
