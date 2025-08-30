@@ -120,13 +120,6 @@
 
 	function handleOpenContextMenu(linkItem: ILinkItem) {
 		return (e: MouseEvent) => {
-			// 为了保证只能点到自身才触发
-			// 通过data属性进行设置是比较方便的
-			const target = e.target as HTMLAnchorElement;
-			const type = target.dataset.type;
-			if (type !== 'linkItem') {
-				return;
-			}
 			e.preventDefault();
 			const { clientX, clientY } = e;
 			if (clientX > (windowWidth / 5) * 4) {
@@ -168,6 +161,21 @@
 			linkItem = selectLinkItem;
 		}
 	}
+
+	// 切换全屏
+	function toggleFullScreen() {
+		if (!document.fullscreenElement) {
+			// 进入全屏
+			document.documentElement.requestFullscreen().catch((err) => {
+				console.log(`无法切换到全屏: ${err.message}`);
+			});
+		} else {
+			// 退出全屏
+			if (document.exitFullscreen) {
+				document.exitFullscreen();
+			}
+		}
+	}
 </script>
 
 <svelte:head>
@@ -175,28 +183,51 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth={windowWidth} />
-<Main>
-	<HeaderMenu activeRoute="/navigation"></HeaderMenu>
+<svelte:body ondblclick={toggleFullScreen} />
+<Main class="relative bg-transparent text-white">
+	<img
+		src="https://storage.deepin.org/thread/202303121436055297_mike-yukhtenko-a2kD4b0KK4s-unsplash.jpg"
+		class="absolute z-10 size-full"
+	/>
+	<div class="absolute z-10 h-full w-full backdrop-blur-2xl"></div>
+	<HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5"></HeaderMenu>
 
-	<div class=" flex flex-wrap gap-6 overflow-auto p-4">
+	<div
+		class=" relative z-30 grid grid-cols-2 gap-6 overflow-auto p-4 text-black sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+	>
 		{#each linkList as linkItem}
 			<a
-				class="flex w-40 cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-stone-200 p-2 shadow"
+				class="relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
 				href={linkItem.href}
 				target="_blank"
 				data-type="linkItem"
-				oncontextmenu={handleOpenContextMenu(linkItem)}
 			>
-				<img src={linkItem.icon} alt="" class="size-10" />
-				<div class="w-full truncate px-4 text-center" title={linkItem.title}>{linkItem.title}</div>
+				<div
+					class="absolute z-10 h-full w-full rounded-2xl"
+					oncontextmenu={handleOpenContextMenu(linkItem)}
+				></div>
+				<img
+					src={linkItem.icon}
+					alt=""
+					class="z-20 mt-2 size-10 rounded-xl bg-white p-1 sm:size-12"
+				/>
+				<div
+					class="relative z-20 w-full truncate px-4 text-center text-white"
+					title={linkItem.title}
+				>
+					<span class="z-20 text-sm">
+						{linkItem.title}
+					</span>
+				</div>
 			</a>
 		{/each}
 
+		<!-- 添加按钮 -->
 		<div
-			class="flex w-40 cursor-pointer flex-col items-center justify-center rounded-2xl border-8 border-double border-stone-200 p-2 shadow"
+			class="group relative flex h-26 cursor-pointer flex-col items-center justify-center rounded-2xl p-2"
 			onclick={handleShowDiaglog}
 		>
-			<SvgUpload class="title-stone-400 size-10" />
+			<SvgUpload class="z-20 size-10 text-white group-hover:text-blue-500" />
 		</div>
 	</div>
 </Main>

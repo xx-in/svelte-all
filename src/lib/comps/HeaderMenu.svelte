@@ -31,37 +31,41 @@
 
 	interface IProps {
 		activeRoute?: string;
+		class?: string;
 	}
 
-	let { activeRoute = '/' }: IProps = $props();
+	let { activeRoute = '/', class: className }: IProps = $props();
 </script>
 
-<section class="border-b border-b-zinc-200 px-2 dark:border-b-zinc-700">
+<section class={twMerge('px-2 shadow-lg', className)}>
 	<div class="flex items-center justify-between gap-2 pt-3 pb-2">
-		<a class="flex flex-1 items-center gap-2" href="/">
+		<a class="flex items-center gap-1" href="/">
 			<img src="/xx.svg" alt="" class="size-6" />
-			<span class="text-base font-bold">xx</span>
+			<span class="pt-1 text-sm">怀疑一切，是通往知识的第一步</span>
 		</a>
 
 		<button class="size-6 cursor-pointer sm:hidden" onclick={handleShowMenu}>
 			<SvgMore class="size-6" />
 		</button>
 
-		<RightDrawer bind:visible={menuVisible}>
-			<div class="flex flex-col gap-2" onclick={handleHideMenu}>
-				{#each routes as { text, href }}
+		<RightDrawer bind:visible={menuVisible} class="bg-stone-200">
+			<div class="flex flex-col gap-2 pr-3" onclick={handleHideMenu}>
+				{#each routes as { text, href }, index}
+					{#if index != 0}
+						<hr class=" text-stone-300" />
+					{/if}
 					<a
 						{href}
 						class={twMerge([
-							'p-2 text-left text-sm shadow hover:text-blue-500',
+							'p-2 text-left text-sm hover:text-blue-500',
 							activeRoute == href && 'text-blue-500'
 						])}>{text}</a
 					>
 				{/each}
 			</div>
 		</RightDrawer>
-		<div class="hidden flex-1 justify-end gap-6 pr-24 sm:flex">
-			{#each routes as { text, href }}
+		<div class="hidden justify-end gap-6 pr-4 sm:flex">
+			{#each routes as { text, href } (href)}
 				<a
 					{href}
 					class={twMerge([

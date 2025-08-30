@@ -1,7 +1,9 @@
 <script lang="ts">
-	let { children } = $props();
+	import { twMerge } from 'tailwind-merge';
+
+	let { children, class: className } = $props();
 </script>
 
-<section class="flex h-screen w-screen flex-col overflow-hidden">
+<section class={twMerge('flex h-screen w-screen flex-col overflow-hidden', className)}>
 	{@render children()}
 </section>

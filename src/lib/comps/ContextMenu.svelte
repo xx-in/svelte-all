@@ -18,7 +18,6 @@
 	let { children, visible = $bindable(), position }: IProps = $props();
 
 	function handleHide() {
-		console.log('??click body');
 		visible = false;
 	}
 

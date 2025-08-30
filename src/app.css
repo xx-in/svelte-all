@@ -1,2 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+@font-face {
+	font-family: 'monoton';
+	src: url('/fonts/Monoton-Regular.ttf') format('TrueType');
+}
