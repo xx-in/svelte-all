@@ -57,8 +57,8 @@
 					<a
 						{href}
 						class={twMerge([
-							'p-2 text-left text-sm hover:text-blue-500',
-							activeRoute == href && 'text-blue-500'
+							'p-2 text-left text-sm hover:text-sky-500',
+							activeRoute == href && 'text-sky-500'
 						])}>{text}</a
 					>
 				{/each}
@@ -69,8 +69,8 @@
 				<a
 					{href}
 					class={twMerge([
-						'underline-offset-14 hover:text-blue-500',
-						activeRoute == href && 'text-blue-500  underline decoration-1'
+						'underline-offset-14 hover:text-sky-500',
+						activeRoute == href && 'text-sky-500  underline decoration-1'
 					])}>{text}</a
 				>
 			{/each}

@@ -14,7 +14,7 @@
 			transform: translateY(0px);
 		}
 		50% {
-			transform: translateY(-1px); /* 上移 5px，小幅度 */
+			transform: translateY(-3px); /* 上移 5px，小幅度 */
 		}
 	}
 }

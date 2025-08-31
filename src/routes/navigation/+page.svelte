@@ -17,6 +17,12 @@
 	let linkList = $state<Array<ILinkItem>>([]);
 
 	function handleShowDiaglog() {
+		linkItem = {
+			href: '',
+			category: activeCategory ? activeCategory : '编程',
+			icon: '',
+			title: ''
+		};
 		visible = true;
 	}
 
@@ -69,6 +75,7 @@
 		handleGetList();
 		handleHideDiaglog();
 		handleReset();
+		activeCategory = linkItem.category;
 	}
 
 	async function handleGetList() {
@@ -189,9 +196,11 @@
 		let result: Record<string, string> = {
 			'': '全部'
 		};
-		categoryList.forEach((category) => {
-			result[category] = category;
-		});
+		Array.from(categoryList)
+			.sort()
+			.forEach((category) => {
+				result[category] = category;
+			});
 		return result;
 	});
 
@@ -240,16 +249,13 @@
 					href={linkItem.href}
 					target="_blank"
 					data-type="linkItem"
+					title={linkItem.title}
+					oncontextmenu={handleOpenContextMenu(linkItem)}
 				>
-					<div
-						class="absolute z-10 h-full w-full rounded-2xl"
-						oncontextmenu={handleOpenContextMenu(linkItem)}
-					></div>
 					<img
 						src={linkItem.icon}
-						alt=""
-						class="z-20
- mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 transition-transform group-hover:-translate-y-1 sm:size-12"
+						alt={linkItem.title}
+						class="z-20 mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 group-hover:animate-bounce-sm sm:size-12"
 					/>
 					<div
 						class="relative z-20 w-full truncate px-4 text-center text-white"
@@ -267,7 +273,7 @@
 				class="group relative flex h-26 cursor-pointer flex-col items-center justify-center rounded-2xl p-2"
 				onclick={handleShowDiaglog}
 			>
-				<SvgUpload class="z-20 size-10 text-white group-hover:text-blue-500" />
+				<SvgUpload class="z-20 size-10 text-white group-hover:text-sky-500" />
 			</div>
 		</div>
 	</section>
@@ -332,7 +338,7 @@
 	>
 		{#each contextMenuList as item}
 			<div
-				class="flex w-40 cursor-pointer items-center gap-2 rounded-sm px-2 py-1 hover:bg-blue-500 hover:text-white"
+				class="flex w-40 cursor-pointer items-center gap-2 rounded-sm px-2 py-1 hover:bg-sky-500 hover:text-white"
 				onclick={item.onclick}
 			>
 				<item.Icon class="size-6" />
