@@ -13,8 +13,8 @@
 			time: '2025-07-20'
 		},
 		{
-			name: 'git使用指南',
-			desc: '一些关于git的常见命令。',
+			name: 'Git 使用指南',
+			desc: '一些关于 git 的常见命令。',
 			time: '2025-07-30'
 		},
 		{
@@ -42,24 +42,24 @@
 <Main>
 	<HeaderMenu activeRoute="/blogs" />
 	<div class="flex-1 overflow-auto p-4">
-		<div class="grid gap-4 pb-20 md:grid-cols-4">
+		<div class="grid grid-cols-1 gap-4 pb-20 md:grid-cols-4">
 			{#each blogList as blog, index}
-				<div
-					class="flex flex-col justify-between gap-2 rounded-2xl border border-stone-200 p-4 shadow"
+				<a
+					class="flex flex-col justify-between gap-2 rounded-2xl border border-stone-100 p-4 pt-3 text-stone-800 shadow hover:bg-sky-200 hover:text-black"
+					href={`/blogs/${blog.name}`}
+					title={blog.desc}
 				>
-					<a href={`/blogs/${blog.name}`} class="text-xl font-bold">
-						<span class="">
-							{index + 1}. {blog.name}
-						</span>
-					</a>
+					<span class="text-xl font-bold">
+						{index + 1}. {blog.name}
+					</span>
 
-					<span>
+					<span class="truncate">
 						{blog.desc}
 					</span>
-					<span>
+					<span class="text-sm">
 						{blog.time}
 					</span>
-				</div>
+				</a>
 			{/each}
 		</div>
 	</div>

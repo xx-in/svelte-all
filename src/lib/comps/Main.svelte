@@ -1,7 +1,13 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { twMerge } from 'tailwind-merge';
 
-	let { children, class: className } = $props();
+	interface IProps {
+		children: Snippet;
+		class?: string;
+	}
+
+	let { children, class: className }: IProps = $props();
 </script>
 
 <section class={twMerge('flex h-screen w-screen flex-col overflow-hidden', className)}>

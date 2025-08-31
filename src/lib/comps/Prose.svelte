@@ -17,7 +17,7 @@
 		// 代码片段 pre
 		'prose-pre:mb-2 prose-pre:p-0 prose-pre:relative',
 		// 代码片段 code
-		'prose-code:px-2 prose-code:py-1 prose-code:mx-1 prose-code:rounded-md prose-code:bg-gray-100 prose-code:text-amber-500 dark:prose-code:bg-gray-700 dark:prose-code:text-amber-400',
+		'prose-code:px-2 prose-code:py-1 prose-code:mx-1 prose-code:rounded-md prose-code:bg-gray-100 dark:prose-code:bg-gray-700 dark:prose-code:text-amber-400',
 		// code 两边的内容
 		'prose-code:before:content-none prose-code:after:content-none',
 		// 链接
