@@ -284,7 +284,7 @@
 				<div
 					class={twMerge(
 						'flex cursor-pointer items-center justify-center rounded-sm bg-black px-2 py-0.5 hover:text-sky-500',
-						activeCategory == category && 'text-sky-500 outline-1'
+						activeCategory == category && 'text-sky-500'
 					)}
 					onmouseover={() => (activeCategory = category)}
 				>
