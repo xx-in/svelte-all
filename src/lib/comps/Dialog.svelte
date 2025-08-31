@@ -11,7 +11,11 @@
 </script>
 
 {#if visible}
-	<div class="fixed top-0 left-0 z-50 h-screen w-screen bg-black/50" transition:fade>
+	<div
+		class="fixed top-0 left-0 z-50 h-screen w-screen bg-black/50"
+		transition:fade
+		ondblclick={(e) => e.stopPropagation()}
+	>
 		{@render children?.()}
 	</div>
 {/if}

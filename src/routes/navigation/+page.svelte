@@ -10,6 +10,7 @@
 	import SvgDelete from '$lib/comps/Svg/SvgDelete.svelte';
 	import SvgEdit from '$lib/comps/Svg/SvgEdit.svelte';
 	import Main from '$lib/comps/Main.svelte';
+	import { twMerge } from 'tailwind-merge';
 
 	let visible = $state(false);
 
@@ -176,6 +177,36 @@
 			}
 		}
 	}
+
+	// 生成目录
+	let categoryObject = $derived.by(() => {
+		const categoryList = new Set<string>();
+		linkList.forEach((item) => {
+			if (item.key) {
+				categoryList.add(item.key[1]);
+			}
+		});
+		let result: Record<string, string> = {
+			'': '全部'
+		};
+		categoryList.forEach((category) => {
+			result[category] = category;
+		});
+		return result;
+	});
+
+	let activeCategory = $state('');
+
+	let activeCategoryLinkList = $derived(
+		linkList.filter((item) => {
+			if (item.key) {
+				return item.key[1].includes(activeCategory);
+			}
+			return false;
+		})
+	);
+
+	$inspect(activeCategoryLinkList);
 </script>
 
 <svelte:head>
@@ -199,43 +230,61 @@
 	<!-- <div class="absolute z-10 h-full w-full backdrop-blur-2xl"></div> -->
 	<HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5"></HeaderMenu>
 
-	<div
-		class=" relative z-30 grid grid-cols-2 gap-6 overflow-auto p-4 text-black sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
-	>
-		{#each linkList as linkItem}
-			<a
-				class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
-				href={linkItem.href}
-				target="_blank"
-				data-type="linkItem"
-			>
-				<div
-					class="absolute z-10 h-full w-full rounded-2xl"
-					oncontextmenu={handleOpenContextMenu(linkItem)}
-				></div>
-				<img
-					src={linkItem.icon}
-					alt=""
-					class="z-20
- mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 transition-transform group-hover:-translate-y-1 sm:size-12"
-				/>
-				<div
-					class="relative z-20 w-full truncate px-4 text-center text-white"
-					title={linkItem.title}
-				>
-					<span class="z-20 text-sm">
-						{linkItem.title}
-					</span>
-				</div>
-			</a>
-		{/each}
-
-		<!-- 添加按钮 -->
+	<section class="flex-1 overflow-auto">
 		<div
-			class="group relative flex h-26 cursor-pointer flex-col items-center justify-center rounded-2xl p-2"
-			onclick={handleShowDiaglog}
+			class="p-4text-black relative z-30 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
 		>
-			<SvgUpload class="z-20 size-10 text-white group-hover:text-blue-500" />
+			{#each activeCategoryLinkList as linkItem}
+				<a
+					class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
+					href={linkItem.href}
+					target="_blank"
+					data-type="linkItem"
+				>
+					<div
+						class="absolute z-10 h-full w-full rounded-2xl"
+						oncontextmenu={handleOpenContextMenu(linkItem)}
+					></div>
+					<img
+						src={linkItem.icon}
+						alt=""
+						class="z-20
+ mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 transition-transform group-hover:-translate-y-1 sm:size-12"
+					/>
+					<div
+						class="relative z-20 w-full truncate px-4 text-center text-white"
+						title={linkItem.title}
+					>
+						<span class="z-20 text-sm">
+							{linkItem.title}
+						</span>
+					</div>
+				</a>
+			{/each}
+
+			<!-- 添加按钮 -->
+			<div
+				class="group relative flex h-26 cursor-pointer flex-col items-center justify-center rounded-2xl p-2"
+				onclick={handleShowDiaglog}
+			>
+				<SvgUpload class="z-20 size-10 text-white group-hover:text-blue-500" />
+			</div>
+		</div>
+	</section>
+
+	<div class="z-20 flex items-center justify-center pb-10 text-center">
+		<div class="flex gap-4 select-none">
+			{#each typedKeys(categoryObject) as category}
+				<div
+					class={twMerge(
+						'flex cursor-pointer items-center justify-center rounded-sm bg-black px-2 py-0.5 hover:text-sky-500',
+						activeCategory == category && 'text-sky-500 outline-1'
+					)}
+					onmouseover={() => (activeCategory = category)}
+				>
+					{categoryObject[category]}
+				</div>
+			{/each}
 		</div>
 	</div>
 </Main>

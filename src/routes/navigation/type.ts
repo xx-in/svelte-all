@@ -6,7 +6,7 @@ export interface ILinkItem {
 	icon: string;
 	title: string;
 	category: string;
-	key?: unknown;
+	key?: Array<string>;
 }
 
 /**
