@@ -185,11 +185,18 @@
 <svelte:window bind:innerWidth={windowWidth} />
 <svelte:body ondblclick={toggleFullScreen} />
 <Main class="relative bg-transparent text-white">
-	<img
-		src="https://storage.deepin.org/thread/202303121436055297_mike-yukhtenko-a2kD4b0KK4s-unsplash.jpg"
+	<!-- <img
+		src="/api/tools/proxy?url=https://haowallpaper.com/link/common/file/previewFileImg/17226281061305728"
 		class="absolute z-10 size-full"
-	/>
-	<div class="absolute z-10 h-full w-full backdrop-blur-2xl"></div>
+	/> -->
+	<video
+		src="https://video.wetab.link/wallpaper-dynamic/v1gtq6c1g3z5yg0bit0zu13gy7wh.mp4"
+		class="absolute z-10 h-screen w-screen object-cover"
+		autoplay
+		muted
+		loop
+	></video>
+	<!-- <div class="absolute z-10 h-full w-full backdrop-blur-2xl"></div> -->
 	<HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5"></HeaderMenu>
 
 	<div
@@ -197,7 +204,7 @@
 	>
 		{#each linkList as linkItem}
 			<a
-				class="relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
+				class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
 				href={linkItem.href}
 				target="_blank"
 				data-type="linkItem"
@@ -209,7 +216,8 @@
 				<img
 					src={linkItem.icon}
 					alt=""
-					class="z-20 mt-2 size-10 rounded-xl bg-white p-1 sm:size-12"
+					class="z-20
+ mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 transition-transform group-hover:-translate-y-1 sm:size-12"
 				/>
 				<div
 					class="relative z-20 w-full truncate px-4 text-center text-white"

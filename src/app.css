@@ -4,3 +4,17 @@
 	font-family: 'monoton';
 	src: url('/fonts/Monoton-Regular.ttf') format('TrueType');
 }
+
+@theme {
+	--animate-bounce-sm: bounce-sm 0.3s infinite;
+
+	@keyframes bounce-sm {
+		0%,
+		100% {
+			transform: translateY(0px);
+		}
+		50% {
+			transform: translateY(-1px); /* 上移 5px，小幅度 */
+		}
+	}
+}

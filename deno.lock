@@ -8,6 +8,7 @@
     "npm:@tailwindcss/vite@4": "4.1.11_vite@7.0.6__picomatch@4.0.3_@types+node@24.3.0",
     "npm:@types/lodash@^4.17.20": "4.17.20",
     "npm:@types/node@^24.3.0": "24.3.0",
+    "npm:animate.css@^4.1.1": "4.1.1",
     "npm:cheerio@^1.1.2": "1.1.2",
     "npm:highlight.js@^11.11.1": "11.11.1",
     "npm:lodash@^4.17.21": "4.17.21",
@@ -651,6 +652,9 @@
     "acorn@8.15.0": {
       "integrity": "sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==",
       "bin": true
+    },
+    "animate.css@4.1.1": {
+      "integrity": "sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ=="
     },
     "aria-query@5.3.2": {
       "integrity": "sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw=="
@@ -1347,6 +1351,7 @@
         "npm:@tailwindcss/vite@4",
         "npm:@types/lodash@^4.17.20",
         "npm:@types/node@^24.3.0",
+        "npm:animate.css@^4.1.1",
         "npm:cheerio@^1.1.2",
         "npm:highlight.js@^11.11.1",
         "npm:lodash@^4.17.21",
