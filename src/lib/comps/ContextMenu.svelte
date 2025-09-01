@@ -31,8 +31,6 @@
 			})
 			.join(';')
 	);
-
-	// $inspect(positionStyle);
 </script>
 
 <svelte:window onclick={handleHide} onscroll={handleHide} />

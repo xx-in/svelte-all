@@ -66,12 +66,8 @@
 		</RightDrawer>
 		<div class="hidden justify-end gap-6 pr-4 sm:flex">
 			{#each routes as { text, href } (href)}
-				<a
-					{href}
-					class={twMerge([
-						'underline-offset-14 hover:text-sky-500',
-						activeRoute == href && 'text-sky-500  underline decoration-1'
-					])}>{text}</a
+				<a {href} class={twMerge(['hover:text-sky-500', activeRoute == href && 'text-sky-500'])}
+					>{text}</a
 				>
 			{/each}
 		</div>

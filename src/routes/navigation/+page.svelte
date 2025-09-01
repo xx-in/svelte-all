@@ -11,12 +11,16 @@
 	import SvgEdit from '$lib/comps/Svg/SvgEdit.svelte';
 	import Main from '$lib/comps/Main.svelte';
 	import { twMerge } from 'tailwind-merge';
+	import cloneDeep from 'lodash/cloneDeep';
+	import { getRandomDarkColor, getRandomDarkGradient } from '$lib/utils/style';
+	import test from 'node:test';
 
 	let visible = $state(false);
 
 	let linkList = $state<Array<ILinkItem>>([]);
 
-	function handleShowDiaglog() {
+	function handleOpenAppendDialog() {
+		isEdit = false;
 		linkItem = {
 			href: '',
 			category: activeCategory ? activeCategory : '编程',
@@ -74,7 +78,6 @@
 		});
 		handleGetList();
 		handleHideDiaglog();
-		handleReset();
 		activeCategory = linkItem.category;
 	}
 
@@ -85,10 +88,6 @@
 		});
 		const { data } = await res.json();
 		linkList = data;
-	}
-
-	function handleReset() {
-		linkItem = { href: '', category: '编程', icon: '', title: '' };
 	}
 
 	onMount(init);
@@ -119,7 +118,7 @@
 			onclick(e: MouseEvent) {
 				e.stopPropagation();
 				contextMenuVisible = false;
-				handleEdit();
+				handleEditDialog();
 			}
 		}
 	]);
@@ -148,8 +147,6 @@
 
 	let windowWidth = $state(0);
 
-	// $inspect(windowWidth);
-
 	async function handleDelete() {
 		const res = await POST('/api/kv', {
 			operate: 'delete',
@@ -162,11 +159,11 @@
 	/**
 	 * 打开编辑弹窗
 	 */
-	async function handleEdit() {
+	async function handleEditDialog() {
 		visible = true;
-		console.log(selectLinkItem);
+		isEdit = true;
 		if (selectLinkItem) {
-			linkItem = selectLinkItem;
+			linkItem = cloneDeep(selectLinkItem);
 		}
 	}
 
@@ -208,14 +205,47 @@
 
 	let activeCategoryLinkList = $derived(
 		linkList.filter((item) => {
+			if (activeCategory == '') {
+				return true;
+			}
 			if (item.key) {
-				return item.key[1].includes(activeCategory);
+				return item.key[1] == activeCategory;
 			}
 			return false;
 		})
 	);
 
-	$inspect(activeCategoryLinkList);
+	let isEdit = $state(false);
+
+	/**
+	 * 编辑时
+	 */
+	async function handleEdit() {
+		const { key, ...rest } = linkItem;
+		// 因为可能修改key，所以要先删除
+		await POST('/api/kv', {
+			operate: 'delete',
+			params: [key]
+		});
+		// 更新
+		const res = await POST('/api/kv', {
+			operate: 'set',
+			params: [['linkItem', linkItem.category, linkItem.href], rest]
+		});
+		handleGetList();
+		handleHideDiaglog();
+		activeCategory = linkItem.category;
+	}
+
+	/**
+	 * 设置随机颜色
+	 */
+	function handleSetRandomColor() {
+		if (linkItem.icon.includes('http')) {
+			return;
+		}
+		linkItem.icon = getRandomDarkColor();
+	}
 </script>
 
 <svelte:head>
@@ -252,11 +282,21 @@
 					title={linkItem.title}
 					oncontextmenu={handleOpenContextMenu(linkItem)}
 				>
-					<img
-						src={linkItem.icon}
-						alt={linkItem.title}
-						class="z-20 mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 group-hover:animate-bounce-sm sm:size-12"
-					/>
+					{#if linkItem.icon.includes('http')}
+						<img
+							src={linkItem.icon}
+							alt={linkItem.title}
+							class="z-20 mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 outline-blue-500 group-hover:outline-2 sm:size-12"
+						/>
+					{:else}
+						<div
+							class="z-20 mt-2 flex size-10 translate-y-0.5 items-center justify-center rounded-xl p-1 text-white outline-blue-500 group-hover:outline-2 sm:size-12"
+							style:background={linkItem.icon}
+						>
+							{linkItem.title[0]}
+						</div>
+					{/if}
+
 					<div
 						class="relative z-20 w-full truncate px-4 text-center text-white"
 						title={linkItem.title}
@@ -271,7 +311,7 @@
 			<!-- 添加按钮 -->
 			<div
 				class="group relative flex h-26 cursor-pointer flex-col items-center justify-center rounded-2xl p-2"
-				onclick={handleShowDiaglog}
+				onclick={handleOpenAppendDialog}
 			>
 				<SvgUpload class="z-20 size-10 text-white group-hover:text-sky-500" />
 			</div>
@@ -295,10 +335,10 @@
 	</div>
 </Main>
 
-<Dialog bind:visible title="新增导航">
+<Dialog bind:visible>
 	<div class="mx-auto mt-[15vh] w-[50vw] rounded-2xl bg-white px-6">
 		<div class="flex justify-between py-4 font-bold">
-			<div class="title-xl">新增链接</div>
+			<div class="title-xl">{isEdit ? '编辑导航' : '新增导航'}</div>
 			<button
 				class=" title-gray-700 hover:title-gray-900 cursor-pointer"
 				onclick={handleHideDiaglog}
@@ -319,15 +359,33 @@
 					/>
 				</label>
 			{/each}
+
+			<div class="flex">
+				随机颜色：
+				<div
+					class="size-6 border"
+					style:background={linkItem.icon}
+					onclick={handleSetRandomColor}
+				></div>
+			</div>
 		</div>
 
 		<div class="flex items-center justify-end gap-4 py-6">
-			<button
-				class="rounded-lg bg-green-500 px-4 py-2 text-white shadow hover:bg-green-600"
-				onclick={handleAppend}
-			>
-				确定
-			</button>
+			{#if isEdit}
+				<button
+					class="rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
+					onclick={handleEdit}
+				>
+					确定
+				</button>
+			{:else}
+				<button
+					class="rounded-lg bg-green-500 px-4 py-2 text-white shadow hover:bg-green-600"
+					onclick={handleAppend}
+				>
+					确定
+				</button>
+			{/if}
 		</div>
 	</div>
 </Dialog>

@@ -4,10 +4,9 @@
 	interface IProps {
 		visible?: boolean;
 		children?: Snippet;
-		title?: string;
 	}
 
-	let { visible = $bindable(true), children, title }: IProps = $props();
+	let { visible = $bindable(true), children }: IProps = $props();
 </script>
 
 {#if visible}
