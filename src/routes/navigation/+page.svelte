@@ -14,6 +14,9 @@
 	import cloneDeep from 'lodash/cloneDeep';
 	import { getRandomDarkColor, getRandomDarkGradient } from '$lib/utils/style';
 	import test from 'node:test';
+	import DialogContent from '$lib/comps/DialogContent.svelte';
+	import DialogTitle from '$lib/comps/DialogTitle.svelte';
+	import { bind } from 'lodash';
 
 	let visible = $state(false);
 
@@ -336,7 +339,10 @@
 </Main>
 
 <Dialog bind:visible>
-	<div class="mx-auto mt-[15vh] w-[50vw] rounded-2xl bg-white px-6">
+	<DialogContent>
+		<DialogTitle title={isEdit ? '编辑导航' : '新增导航'} bind:visible></DialogTitle>
+		<!-- <div class="mx-auto mt-[15vh] w-[50vw] rounded-2xl bg-white px-6">
+
 		<div class="flex justify-between py-4 font-bold">
 			<div class="title-xl">{isEdit ? '编辑导航' : '新增导航'}</div>
 			<button
@@ -345,8 +351,8 @@
 			>
 				✕
 			</button>
-		</div>
-		<div class="flex flex-col gap-4">
+		</div> -->
+		<div class="mt-2 flex flex-col gap-4">
 			{#each typedKeys(columns) as prop}
 				<label class="flex">
 					<span>{columns[prop].label}</span>
@@ -387,7 +393,8 @@
 				</button>
 			{/if}
 		</div>
-	</div>
+		<!-- </div> -->
+	</DialogContent>
 </Dialog>
 
 <ContextMenu bind:visible={contextMenuVisible} position={contextMenuPosition}>

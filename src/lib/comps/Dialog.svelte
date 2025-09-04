@@ -7,13 +7,18 @@
 	}
 
 	let { visible = $bindable(true), children }: IProps = $props();
+
+	function handleClickMask() {
+		visible = false;
+	}
 </script>
 
 {#if visible}
 	<div
 		class="fixed top-0 left-0 z-50 h-screen w-screen bg-black/50"
-		transition:fade
+		transition:fade={{ duration: 100 }}
 		ondblclick={(e) => e.stopPropagation()}
+		onclick={handleClickMask}
 	>
 		{@render children?.()}
 	</div>

@@ -2,6 +2,11 @@
 	import RightDrawer from '$lib/comps/RightDrawer.svelte';
 	import { twMerge } from 'tailwind-merge';
 	import SvgMore from './Svg/SvgMore.svelte';
+	import SvgSearch from './Svg/SvgSearch.svelte';
+	import SvgCommand from './Svg/SvgCommand.svelte';
+	import Dialog from './Dialog.svelte';
+	import DialogContent from './DialogContent.svelte';
+	import DialogTitle from './DialogTitle.svelte';
 
 	let routes = [
 		{
@@ -35,6 +40,8 @@
 	}
 
 	let { activeRoute = '/', class: className }: IProps = $props();
+
+	let searchDialogVisible = $state(false);
 </script>
 
 <section class={twMerge('px-2 shadow-lg', className)}>
@@ -43,7 +50,7 @@
 			<img src="/xx.svg" alt="" class="size-6" />
 			<span class="pt-1 text-sm">怀疑一切，是通往知识的第一步</span>
 		</a>
-
+		<!-- 移动端显示 -->
 		<button class="size-6 cursor-pointer sm:hidden" onclick={handleShowMenu}>
 			<SvgMore class="size-6" />
 		</button>
@@ -64,7 +71,18 @@
 				{/each}
 			</div>
 		</RightDrawer>
+
+		<!-- pc 端显示 -->
 		<div class="hidden justify-end gap-6 pr-4 sm:flex">
+			<div
+				class="flex cursor-pointer items-center gap-1 rounded-2xl border border-stone-300 px-2 font-thin text-stone-300 shadow"
+				onclick={() => (searchDialogVisible = true)}
+			>
+				<SvgSearch class="size-5 text-white" />
+
+				<SvgCommand class="size-3" />
+				<span class="text-sm">K</span>
+			</div>
 			{#each routes as { text, href } (href)}
 				<a {href} class={twMerge(['hover:text-sky-500', activeRoute == href && 'text-sky-500'])}
 					>{text}</a
@@ -73,3 +91,13 @@
 		</div>
 	</div>
 </section>
+
+<Dialog bind:visible={searchDialogVisible}>
+	<DialogContent>
+		<DialogTitle title="搜索栏" bind:visible={searchDialogVisible} />
+
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur maxime eius, quis ducimus ea
+		nemo sed, voluptatibus assumenda, neque architecto asperiores tempore consequuntur expedita quo
+		est officiis at. Accusamus, quod.</DialogContent
+	>
+</Dialog>
