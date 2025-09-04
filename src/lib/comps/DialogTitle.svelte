@@ -11,8 +11,8 @@
 	}
 </script>
 
-<div class="flex justify-between py-2 font-bold">
-	<div class="title-xl">{title}</div>
+<div class="mb-6 flex justify-between border-b-1 border-stone-200 py-2 font-bold">
+	<div class="text-xl">{title}</div>
 	<button class=" title-gray-700 hover:title-gray-900 cursor-pointer" onclick={handleClose}>
 		✕
 	</button>

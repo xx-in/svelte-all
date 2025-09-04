@@ -12,11 +12,9 @@
 	import Main from '$lib/comps/Main.svelte';
 	import { twMerge } from 'tailwind-merge';
 	import cloneDeep from 'lodash/cloneDeep';
-	import { getRandomDarkColor, getRandomDarkGradient } from '$lib/utils/style';
-	import test from 'node:test';
 	import DialogContent from '$lib/comps/DialogContent.svelte';
 	import DialogTitle from '$lib/comps/DialogTitle.svelte';
-	import { bind } from 'lodash';
+	import AnimatePing from '$lib/comps/AnimatePing.svelte';
 
 	let visible = $state(false);
 
@@ -28,7 +26,8 @@
 			href: '',
 			category: activeCategory ? activeCategory : '编程',
 			icon: '',
-			title: ''
+			title: '',
+			bgColor: 'transparent'
 		};
 		visible = true;
 	}
@@ -41,27 +40,36 @@
 		href: '',
 		category: '编程',
 		icon: '',
-		title: ''
+		title: '',
+		bgColor: 'transparent'
 	});
 
 	let columns = $state<ILinkAppendItem>({
 		href: {
-			label: '链接：',
+			label: '链接',
 			placeholder: '请输入链接地址',
+			type: 'text',
 			onblur: handleChangeHref
 		},
 		category: {
-			label: '分类：',
+			label: '分类',
+			type: 'text',
 			placeholder: '请输入分类'
 		},
 
 		title: {
-			label: '文本：',
+			label: '文本',
+			type: 'text',
 			placeholder: '请输入描述文本'
 		},
 		icon: {
-			label: '图标：',
-			placeholder: '请输入图标地址'
+			label: '图标',
+			placeholder: '请输入图标地址',
+			type: 'text'
+		},
+		bgColor: {
+			type: 'color',
+			label: '背景'
 		}
 	});
 
@@ -240,14 +248,8 @@
 		activeCategory = linkItem.category;
 	}
 
-	/**
-	 * 设置随机颜色
-	 */
-	function handleSetRandomColor() {
-		if (linkItem.icon.includes('http')) {
-			return;
-		}
-		linkItem.icon = getRandomDarkColor();
+	function handleToTransparent() {
+		linkItem.bgColor = 'transparent';
 	}
 </script>
 
@@ -258,10 +260,6 @@
 <svelte:window bind:innerWidth={windowWidth} />
 <svelte:body ondblclick={toggleFullScreen} />
 <Main class="relative bg-transparent text-white">
-	<!-- <img
-		src="/api/tools/proxy?url=https://haowallpaper.com/link/common/file/previewFileImg/17226281061305728"
-		class="absolute z-10 size-full"
-	/> -->
 	<video
 		src="https://video.wetab.link/wallpaper-dynamic/v1gtq6c1g3z5yg0bit0zu13gy7wh.mp4"
 		class="absolute z-10 h-screen w-screen object-cover"
@@ -269,36 +267,54 @@
 		muted
 		loop
 	></video>
-	<!-- <div class="absolute z-10 h-full w-full backdrop-blur-2xl"></div> -->
 	<HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5"></HeaderMenu>
 
 	<section class="flex-1 overflow-auto">
+		<!-- 添加按钮 -->
 		<div
 			class="p-4text-black relative z-30 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
 		>
+			<div
+				class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
+				onclick={handleOpenAppendDialog}
+				title="新增导航"
+			>
+				<AnimatePing class="z-20 mt-2 size-10 sm:size-12">
+					<div class="size-full rounded-xl bg-green-500">
+						<SvgUpload class="size-full"></SvgUpload>
+					</div>
+				</AnimatePing>
+
+				<div class="relative z-20 w-full truncate px-4 text-center text-white">
+					<span class="z-20 text-sm">新增导航</span>
+				</div>
+			</div>
 			{#each activeCategoryLinkList as linkItem}
 				<a
-					class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
+					class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2
+					"
 					href={linkItem.href}
 					target="_blank"
 					data-type="linkItem"
-					title={linkItem.title}
 					oncontextmenu={handleOpenContextMenu(linkItem)}
 				>
-					{#if linkItem.icon.includes('http')}
-						<img
-							src={linkItem.icon}
-							alt={linkItem.title}
-							class="z-20 mt-2 size-10 translate-y-0.5 rounded-xl bg-white p-1 outline-blue-500 group-hover:outline-2 sm:size-12"
-						/>
-					{:else}
-						<div
-							class="z-20 mt-2 flex size-10 translate-y-0.5 items-center justify-center rounded-xl p-1 text-white outline-blue-500 group-hover:outline-2 sm:size-12"
-							style:background={linkItem.icon}
-						>
-							{linkItem.title[0]}
-						</div>
-					{/if}
+					<AnimatePing class="z-20 mt-2 size-10  sm:size-12 ">
+						{#if linkItem.icon.includes('http')}
+							<img
+								src={linkItem.icon}
+								alt={linkItem.title}
+								class="size-full rounded-md"
+								style:background={linkItem.bgColor}
+							/>
+						{:else}
+							<div
+								class="flex size-full items-center justify-center rounded-md text-white"
+								style:background={linkItem.bgColor}
+							>
+								{linkItem.title[0]}
+							</div>
+						{/if}
+					</AnimatePing>
 
 					<div
 						class="relative z-20 w-full truncate px-4 text-center text-white"
@@ -310,19 +326,11 @@
 					</div>
 				</a>
 			{/each}
-
-			<!-- 添加按钮 -->
-			<div
-				class="group relative flex h-26 cursor-pointer flex-col items-center justify-center rounded-2xl p-2"
-				onclick={handleOpenAppendDialog}
-			>
-				<SvgUpload class="z-20 size-10 text-white group-hover:text-sky-500" />
-			</div>
 		</div>
 	</section>
 
-	<div class="z-20 flex items-center justify-center pb-10 text-center">
-		<div class="flex gap-4 select-none">
+	<div class="z-20 flex items-center justify-center p-10 text-center">
+		<div class="flex gap-4 overscroll-auto select-none">
 			{#each typedKeys(categoryObject) as category}
 				<div
 					class={twMerge(
@@ -341,41 +349,43 @@
 <Dialog bind:visible>
 	<DialogContent>
 		<DialogTitle title={isEdit ? '编辑导航' : '新增导航'} bind:visible></DialogTitle>
-		<!-- <div class="mx-auto mt-[15vh] w-[50vw] rounded-2xl bg-white px-6">
-
-		<div class="flex justify-between py-4 font-bold">
-			<div class="title-xl">{isEdit ? '编辑导航' : '新增导航'}</div>
-			<button
-				class=" title-gray-700 hover:title-gray-900 cursor-pointer"
-				onclick={handleHideDiaglog}
-			>
-				✕
-			</button>
-		</div> -->
 		<div class="mt-2 flex flex-col gap-4">
 			{#each typedKeys(columns) as prop}
-				<label class="flex">
-					<span>{columns[prop].label}</span>
-					<input
-						type="title"
-						class="flex-1 border outline-none"
-						bind:value={linkItem[prop]}
-						placeholder={columns[prop].placeholder}
-						onblur={columns[prop].onblur as any}
-					/>
-				</label>
-			{/each}
+				<div class="flex items-center gap-4">
+					<label>
+						<span class="w-20 text-right">{columns[prop].label}：</span>
+					</label>
 
-			<div class="flex">
-				随机颜色：
-				<div
-					class="size-6 border"
-					style:background={linkItem.icon}
-					onclick={handleSetRandomColor}
-				></div>
-			</div>
+					{#if columns[prop].type == 'color'}
+						<div class="flex flex-1 items-center gap-2">
+							<button
+								class="rounded-sm bg-purple-500 px-4 py-1 text-white"
+								onclick={handleToTransparent}>透明</button
+							>
+							<input bind:value={linkItem[prop]} class="outline-none" />
+
+							<input
+								class="size-6"
+								bind:value={linkItem[prop]}
+								placeholder={columns[prop].placeholder}
+								onblur={columns[prop].onblur as any}
+								type={columns[prop].type}
+							/>
+						</div>
+					{:else}
+						<input
+							class="flex-1 border outline-none"
+							bind:value={linkItem[prop]}
+							placeholder={columns[prop].placeholder}
+							onblur={columns[prop].onblur as any}
+							type={columns[prop].type}
+						/>
+					{/if}
+				</div>
+			{/each}
 		</div>
 
+		<!-- 操作栏 -->
 		<div class="flex items-center justify-end gap-4 py-6">
 			{#if isEdit}
 				<button
@@ -393,7 +403,6 @@
 				</button>
 			{/if}
 		</div>
-		<!-- </div> -->
 	</DialogContent>
 </Dialog>
 

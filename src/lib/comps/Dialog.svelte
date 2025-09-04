@@ -8,8 +8,11 @@
 
 	let { visible = $bindable(true), children }: IProps = $props();
 
-	function handleClickMask() {
-		visible = false;
+	function handleClickMask(e: MouseEvent) {
+		const target = e.target as HTMLDivElement;
+		if (target?.dataset.type == 'mask') {
+			visible = false;
+		}
 	}
 </script>
 
@@ -19,6 +22,7 @@
 		transition:fade={{ duration: 100 }}
 		ondblclick={(e) => e.stopPropagation()}
 		onclick={handleClickMask}
+		data-type="mask"
 	>
 		{@render children?.()}
 	</div>

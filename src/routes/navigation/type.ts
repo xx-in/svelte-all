@@ -6,6 +6,7 @@ export interface ILinkItem {
 	icon: string;
 	title: string;
 	category: string;
+	bgColor: string;
 	key?: Array<string>;
 }
 
@@ -13,10 +14,11 @@ export interface ILinkItem {
  * 新增数据的类型
  */
 export type ILinkAppendItem = Record<
-	'href' | 'icon' | 'title' | 'category',
+	'href' | 'icon' | 'title' | 'category' | 'bgColor',
 	{
 		label: string;
-		placeholder: string;
+		placeholder?: string;
+		type: 'text' | 'color';
 		[key: string]: unknown;
 	}
 >;

@@ -10,8 +10,8 @@
 <svg class={twMerge(className)} {onclick}>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 		><path
-			fill="transparent"
-			d="M23 11v2h-1v1h-8v8h-1v1h-2v-1h-1v-8H2v-1H1v-2h1v-1h8V2h1V1h2v1h1v8h8v1z"
+			fill="currentColor"
+			d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"
 			stroke-width="0.5"
 			stroke="currentColor"
 		/></svg
