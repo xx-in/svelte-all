@@ -243,12 +243,54 @@
 		'bg-gray-950',
 		'bg-zinc-950',
 		'bg-neutral-950',
-		'bg-stone-950'
+		'bg-stone-950',
+		'bg-white',
+		'bg-black',
+		'bg-transparent'
 	]);
+
+	interface IProps {
+		value: string;
+	}
+
+	let { value = $bindable() }: IProps = $props();
+	let visible = $state(false);
+
+	function setValue(color: string) {
+		value = color;
+	}
+
+	function handleShowPicker() {
+		visible = true;
+	}
+
+	function handleHidePicker(e: MouseEvent) {
+		if (e.target != picker) {
+			visible = false;
+		}
+	}
+
+	let picker = $state<HTMLDivElement | null>(null);
 </script>
 
-<section class="inline-grid grid-cols-22 justify-start border gap-1">
-	{#each colors as color}
-		<div class={twMerge('size-6', color)}></div>
-	{/each}
-</section>
+<svelte:window onclick={handleHidePicker} />
+<div class="content relative size-6">
+	<div
+		class={twMerge('size-full cursor-pointer border border-gray-100 shadow', value)}
+		onclick={handleShowPicker}
+		bind:this={picker}
+	></div>
+
+	{#if visible}
+		<section
+			class="absolute top-8 inline-grid w-113 grid-cols-22 gap-1 rounded-xl border border-gray-200 bg-white p-2 shadow"
+		>
+			{#each colors as color}
+				<div
+					class={twMerge('size-4 cursor-pointer shadow', color, color == value && 'rounded-full')}
+					onclick={() => setValue(color)}
+				></div>
+			{/each}
+		</section>
+	{/if}
+</div>

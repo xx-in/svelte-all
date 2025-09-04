@@ -15,6 +15,7 @@
 	import DialogContent from '$lib/comps/DialogContent.svelte';
 	import DialogTitle from '$lib/comps/DialogTitle.svelte';
 	import AnimatePing from '$lib/comps/AnimatePing.svelte';
+	import ColorPicker from '$lib/comps/ColorPicker.svelte';
 
 	let visible = $state(false);
 
@@ -27,7 +28,7 @@
 			category: activeCategory ? activeCategory : '编程',
 			icon: '',
 			title: '',
-			bgColor: 'transparent'
+			bgColor: 'bg-transparent'
 		};
 		visible = true;
 	}
@@ -41,7 +42,7 @@
 		category: '编程',
 		icon: '',
 		title: '',
-		bgColor: 'transparent'
+		bgColor: 'bg-transparent'
 	});
 
 	let columns = $state<ILinkAppendItem>({
@@ -247,10 +248,6 @@
 		handleHideDiaglog();
 		activeCategory = linkItem.category;
 	}
-
-	function handleToTransparent() {
-		linkItem.bgColor = 'transparent';
-	}
 </script>
 
 <svelte:head>
@@ -289,10 +286,10 @@
 					<span class="z-20 text-sm">新增导航</span>
 				</div>
 			</div>
-			{#each activeCategoryLinkList as linkItem}
+			{#each activeCategoryLinkList as linkItem (linkItem.key)}
 				<a
 					class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2
-					"
+					select-none"
 					href={linkItem.href}
 					target="_blank"
 					data-type="linkItem"
@@ -303,13 +300,14 @@
 							<img
 								src={linkItem.icon}
 								alt={linkItem.title}
-								class="size-full rounded-md"
-								style:background={linkItem.bgColor}
+								class={twMerge('size-full rounded-md', linkItem.bgColor)}
 							/>
 						{:else}
 							<div
-								class="flex size-full items-center justify-center rounded-md text-white"
-								style:background={linkItem.bgColor}
+								class={twMerge(
+									'flex size-full items-center justify-center rounded-md text-white',
+									linkItem.bgColor
+								)}
 							>
 								{linkItem.title[0]}
 							</div>
@@ -358,19 +356,8 @@
 
 					{#if columns[prop].type == 'color'}
 						<div class="flex flex-1 items-center gap-2">
-							<button
-								class="rounded-sm bg-purple-500 px-4 py-1 text-white"
-								onclick={handleToTransparent}>透明</button
-							>
+							<ColorPicker bind:value={linkItem[prop]} />
 							<input bind:value={linkItem[prop]} class="outline-none" />
-
-							<input
-								class="size-6"
-								bind:value={linkItem[prop]}
-								placeholder={columns[prop].placeholder}
-								onblur={columns[prop].onblur as any}
-								type={columns[prop].type}
-							/>
 						</div>
 					{:else}
 						<input
