@@ -16,7 +16,7 @@
 >
 	<div class="text-lg">{title}</div>
 	<button
-		class="flex size-6 cursor-pointer items-center justify-center rounded-full bg-stone-100 p-1 text-stone-500 hover:bg-stone-200 hover:text-black"
+		class="flex size-6 cursor-pointer items-center justify-center rounded-full p-1"
 		onclick={handleClose}
 	>
 		✕
