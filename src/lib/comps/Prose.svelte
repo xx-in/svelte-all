@@ -8,7 +8,8 @@
 	import { twMerge } from 'tailwind-merge';
 
 	let classList = twMerge([
-		'prose dark:prose-invert mx-auto max-w-full md:max-w-1/2 pb-[20vh]',
+		'max-w-full',
+		'prose dark:prose-invert mx-auto',
 		'prose-h1:mt-8 prose-h2:my-4',
 		'prose-pre:mb-2 prose-pre:p-0 prose-pre:relative',
 		className

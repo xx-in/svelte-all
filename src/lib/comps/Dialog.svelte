@@ -4,14 +4,17 @@
 	interface IProps {
 		visible?: boolean;
 		children?: Snippet;
+		hideOnClickMask?: boolean;
 	}
 
-	let { visible = $bindable(true), children }: IProps = $props();
+	let { visible = $bindable(true), children, hideOnClickMask = true }: IProps = $props();
 
 	function handleClickMask(e: MouseEvent) {
 		const target = e.target as HTMLDivElement;
 		if (target?.dataset.type == 'mask') {
-			visible = false;
+			if (hideOnClickMask) {
+				visible = false;
+			}
 		}
 	}
 </script>

@@ -13,7 +13,7 @@
 
 <div
 	class={twMerge(
-		'mx-auto mt-[10vh] max-h-[70vh] w-[50%] rounded-2xl bg-white px-4 text-black',
+		'mx-auto mt-[10vh] max-h-[70vh] w-[90%] rounded-2xl bg-white px-4 pb-8 text-black sm:w-[50%]',
 		className
 	)}
 >

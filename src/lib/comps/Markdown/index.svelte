@@ -9,6 +9,7 @@
 	import { isDark } from '$lib/utils/theme';
 	import { setStyle } from '$lib/utils/style';
 	import Prose from '../Prose.svelte';
+	import { twMerge } from 'tailwind-merge';
 
 	const styleId = nanoid();
 	isDark.subscribe((isDark) => {
@@ -16,7 +17,11 @@
 		setStyle(styleContent, styleId);
 	});
 
-	let { raw } = $props();
+	interface IProps {
+		raw: string;
+		class?: string;
+	}
+	let { raw, class: className }: IProps = $props();
 	const marked = new Marked(
 		// @ts-ignore
 		markedHighlight({
@@ -33,10 +38,10 @@
 		})
 	);
 
-	const html = marked.parse(raw);
+	let html = $derived(marked.parse(raw));
 </script>
 
-<Prose>
+<Prose class={twMerge('pb-20', className)}>
 	{@html html}
 </Prose>
 

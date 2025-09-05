@@ -283,7 +283,7 @@
 
 	{#if visible}
 		<section
-			class="absolute top-8 inline-grid w-113 grid-cols-22 gap-1 rounded-xl border border-gray-200 bg-white p-2 shadow"
+			class="absolute top-8 inline-grid w-113 origin-top-left scale-50 grid-cols-22 gap-1 rounded-xl border border-gray-200 bg-white p-2 shadow sm:scale-100"
 		>
 			{#each colors as color}
 				<div

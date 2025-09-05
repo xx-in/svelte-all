@@ -213,7 +213,7 @@
 		return result;
 	});
 
-	let activeCategory = $state('');
+	let activeCategory = $state('搜索');
 
 	let activeCategoryLinkList = $derived(
 		linkList.filter((item) => {
@@ -266,32 +266,18 @@
 	></video>
 	<HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5"></HeaderMenu>
 
-	<section class="flex-1 overflow-auto">
-		<!-- 添加按钮 -->
+	<div class="h-6"></div>
+	<section class="flex-1 snap-y snap-mandatory overflow-auto scroll-smooth">
 		<div
-			class="p-4text-black relative z-30 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+			class=" relative z-30 grid grid-cols-4 gap-6 pb-10 text-black sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8"
 		>
-			<div
-				class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
-				onclick={handleOpenAppendDialog}
-				title="新增导航"
-			>
-				<AnimatePing class="z-20 mt-2 size-10 sm:size-12">
-					<div class="size-full rounded-xl bg-green-500">
-						<SvgUpload class="size-full"></SvgUpload>
-					</div>
-				</AnimatePing>
-
-				<div class="relative z-20 w-full truncate px-4 text-center text-white">
-					<span class="z-20 text-sm">新增导航</span>
-				</div>
-			</div>
+			<!--  导航列表 -->
 			{#each activeCategoryLinkList as linkItem (linkItem.key)}
 				<a
-					class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2
-					select-none"
+					class="group relative flex cursor-pointer snap-start flex-col items-center justify-center gap-2
+					py-2 select-none"
 					href={linkItem.href}
-					target="_blank"
+					target="_self"
 					data-type="linkItem"
 					oncontextmenu={handleOpenContextMenu(linkItem)}
 				>
@@ -315,7 +301,7 @@
 					</AnimatePing>
 
 					<div
-						class="relative z-20 w-full truncate px-4 text-center text-white"
+						class="relative left-0 z-20 w-full truncate text-center text-white"
 						title={linkItem.title}
 					>
 						<span class="z-20 text-sm">
@@ -324,10 +310,27 @@
 					</div>
 				</a>
 			{/each}
+
+			<!-- 添加按钮 -->
+			<div
+				class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
+				onclick={handleOpenAppendDialog}
+				title="新增导航"
+			>
+				<AnimatePing class="z-20 mt-2 size-10 sm:size-12">
+					<div class="size-full rounded-xl bg-green-500">
+						<SvgUpload class="size-full"></SvgUpload>
+					</div>
+				</AnimatePing>
+
+				<div class="relative z-20 w-full truncate px-4 text-center text-white">
+					<span class="z-20 text-sm">新增导航</span>
+				</div>
+			</div>
 		</div>
 	</section>
-
-	<div class="z-20 flex items-center justify-center p-10 text-center">
+	<div class="h-6"></div>
+	<div class="z-20 flex items-center justify-center pb-6 text-center">
 		<div class="flex gap-4 overscroll-auto select-none">
 			{#each typedKeys(categoryObject) as category}
 				<div
@@ -344,12 +347,12 @@
 	</div>
 </Main>
 
-<Dialog bind:visible>
+<Dialog bind:visible hideOnClickMask={false}>
 	<DialogContent>
 		<DialogTitle title={isEdit ? '编辑导航' : '新增导航'} bind:visible></DialogTitle>
 		<div class="mt-2 flex flex-col gap-4">
 			{#each typedKeys(columns) as prop}
-				<div class="flex items-center gap-4">
+				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 					<label>
 						<span class="w-20 text-right">{columns[prop].label}：</span>
 					</label>
@@ -373,17 +376,23 @@
 		</div>
 
 		<!-- 操作栏 -->
-		<div class="flex items-center justify-end gap-4 py-6">
+		<div class="mt-6 flex items-center justify-end gap-4">
+			<button
+				class="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-white shadow hover:bg-gray-600"
+				onclick={() => (visible = false)}
+			>
+				取消
+			</button>
 			{#if isEdit}
 				<button
-					class="rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
+					class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
 					onclick={handleEdit}
 				>
 					确定
 				</button>
 			{:else}
 				<button
-					class="rounded-lg bg-green-500 px-4 py-2 text-white shadow hover:bg-green-600"
+					class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
 					onclick={handleAppend}
 				>
 					确定
