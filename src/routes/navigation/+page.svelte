@@ -28,7 +28,7 @@
 			category: activeCategory ? activeCategory : '编程',
 			icon: '',
 			title: '',
-			bgColor: 'bg-transparent'
+			bgColor: 'bg-white'
 		};
 		visible = true;
 	}
@@ -42,7 +42,7 @@
 		category: '编程',
 		icon: '',
 		title: '',
-		bgColor: 'bg-transparent'
+		bgColor: 'bg-white'
 	});
 
 	let columns = $state<ILinkAppendItem>({
@@ -364,7 +364,7 @@
 						</div>
 					{:else}
 						<input
-							class="flex-1 border outline-none"
+							class="flex-1 outline-none"
 							bind:value={linkItem[prop]}
 							placeholder={columns[prop].placeholder}
 							onblur={columns[prop].onblur as any}
@@ -403,9 +403,7 @@
 </Dialog>
 
 <ContextMenu bind:visible={contextMenuVisible} position={contextMenuPosition}>
-	<div
-		class="inset-shadow-lg flex flex-col gap-2 rounded-sm border border-gray-300 bg-white p-1 text-sm select-none"
-	>
+	<div class="inset-shadow-lg flex flex-col gap-2 p-1 text-sm select-none">
 		{#each contextMenuList as item}
 			<div
 				class="flex w-40 cursor-pointer items-center gap-2 rounded-sm px-2 py-1 hover:bg-sky-500 hover:text-white"

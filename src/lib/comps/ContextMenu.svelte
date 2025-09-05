@@ -36,7 +36,10 @@
 <svelte:window onclick={handleHide} onscroll={handleHide} />
 
 {#if visible}
-	<div class="content fixed z-50" style={positionStyle}>
+	<div
+		class="content fixed z-50 rounded-md border border-gray-300 bg-white dark:border-gray-900 dark:bg-black"
+		style={positionStyle}
+	>
 		{@render children?.()}
 	</div>
 {/if}

@@ -11,9 +11,14 @@
 	}
 </script>
 
-<div class="mb-6 flex justify-between border-b-1 border-stone-200 pt-4 pb-2 font-bold">
-	<div class="text-xl">{title}</div>
-	<button class=" title-gray-700 hover:title-gray-900 cursor-pointer" onclick={handleClose}>
+<div
+	class="mb-6 flex justify-between border-b-1 border-stone-200 pt-4 pb-2 font-bold dark:border-gray-600"
+>
+	<div class="text-lg">{title}</div>
+	<button
+		class="flex size-6 cursor-pointer items-center justify-center rounded-full bg-stone-100 p-1 text-stone-500 hover:bg-stone-200 hover:text-black"
+		onclick={handleClose}
+	>
 		✕
 	</button>
 </div>
