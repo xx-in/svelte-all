@@ -8,4 +8,6 @@
 
 <HeaderMenu></HeaderMenu>
 
-<div>首页</div>
+<div>
+	<a href="/games/九宫格" class="underline hover:text-blue-500">九宫格</a>
+</div>
