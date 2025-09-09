@@ -1,67 +1,71 @@
 <script lang="ts">
-  import type { IRenderItem, IRenderObject } from "./type";
-  /**
-   * 我需要一个可以动态生成表单的工具
-   * 工具要求有以下几点：
-   * 1. 可以指定组件类型
-   * 2. 可以保存输入的值
-   * 3. 可以对输入的值进行操作
-   * 4. 可以显示错误内容
-   * 5. 可以配置组件的属性
-   * 6. 可以配置属性联动事件
-   * 7. 数据可以是对象、数组、日期、字符串、数字等
-   * 8. 数据可能是递归的
-   */
-  import Text from "./text.svelte";
-  import { typedEntries, typedKeys } from "$lib/utils";
+  import Render, { parse } from "./Render.svelte";
+  import { type IRenderArray } from "./type";
 
-  let formObject = $state<IRenderObject>({
-    name: {
-      type: Text,
-      value: "123",
-      params: {
-        label: "name",
-      },
-      events: {
-        oninput(e) {
-          console.log(e);
+  let compList = $state<IRenderArray>(
+    parse([
+      {
+        type: "Div",
+        value: "",
+        params: {
+          class: "flex items-center",
         },
+        events: {},
+        children: [
+          {
+            type: "Span",
+            value: "姓名：",
+            params: {},
+            events: {},
+          },
+          {
+            type: "Input",
+            value: "123",
+            params: {
+              placeholder: "请输入姓名",
+              class: "border-none",
+            },
+            events: {
+              oninput(e) {
+                console.log(e);
+              },
+            },
+          },
+        ],
       },
-    },
-    sex: {
-      type: Text,
-      value: "男",
-      params: {
-        label: "sex",
+      {
+        type: "Div",
+        value: "",
+        params: {
+          class: "flex items-center",
+        },
+        events: {},
+        children: [
+          {
+            type: "Span",
+            value: "性别：",
+            params: {},
+            events: {},
+          },
+          {
+            type: "Input",
+            value: "男",
+            params: {
+              placeholder: "请输入性别",
+              class: "border-none",
+            },
+            events: {
+              oninput(e) {
+                console.log(e);
+              },
+            },
+          },
+        ],
       },
-    },
-  });
-
-  function handleWrap<T>(item: IRenderItem, cb?: (e: Event, item: IRenderItem) => void) {
-    function asignment(e: Event) {
-      if (e.target) {
-        // @ts-ignore
-        item.value = e.target.value;
-      }
-    }
-    if (!cb) {
-      return asignment;
-    }
-    return (e: Event) => {
-      asignment(e);
-      cb(e, item);
-    };
-  }
+    ]),
+  );
 </script>
 
-{#each typedEntries(formObject) as [key, item]}
-  <item.type
-    value={item.value}
-    {...item.params}
-    oninput={handleWrap(item, item?.events?.oninput)}
-  />
-{/each}
-
-<div>
-  {JSON.stringify(formObject)}
+<div class="p-2">
+  <Render {compList} />
 </div>
