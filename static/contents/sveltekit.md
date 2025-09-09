@@ -1,16 +1,18 @@
-# SvelteKit 
+# SvelteKit
 
 以下是一些常见问题及问题解析
 
-##  如何开启 `SPA` 模式
+## 如何开启 `SPA` 模式
 
 `SPA`是指前端单页应用，也就是在前端控制路由。
 
 - `ssr` 表示服务端渲染，会开启水合功能，需要部署到`JS运行时`上，如`nodejs`，`deno`等。
 
-- `prrender` 表示预渲染处理，会将页面直接编译为静态页面，不能包含任何动态路由参数，直接处理为`*.html`。
+- `prrender`
+  表示预渲染处理，会将页面直接编译为静态页面，不能包含任何动态路由参数，直接处理为`*.html`。
 
-同时将 `ssr` 和 `prerender` 设置为`false`，将开启`SPA`模式，同时需要修改`adapter`为`@sveltejs/adapter-static`，并设置`fallback`参数，详情如下：
+同时将 `ssr` 和 `prerender`
+设置为`false`，将开启`SPA`模式，同时需要修改`adapter`为`@sveltejs/adapter-static`，并设置`fallback`参数，详情如下：
 
 ```ts
 /**
@@ -25,13 +27,13 @@ export const ssr = false;
  * svelte.config.js
  * 文件中其他部分内容已省略
  */
-import adapter from '@sveltejs/adapter-static';
+import adapter from "@sveltejs/adapter-static";
 const config = {
-	kit: {
-		adapter: adapter({
-			fallback: 'index.html'
-		})
-	}
+  kit: {
+    adapter: adapter({
+      fallback: "index.html",
+    }),
+  },
 };
 ```
 

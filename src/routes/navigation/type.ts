@@ -2,23 +2,23 @@
  * 链接数据类型
  */
 export interface ILinkItem {
-	href: string;
-	icon: string;
-	title: string;
-	category: string;
-	bgColor: string;
-	key?: Array<string>;
+  href: string;
+  icon: string;
+  title: string;
+  category: string;
+  bgColor: string;
+  key?: Array<string>;
 }
 
 /**
  * 新增数据的类型
  */
 export type ILinkAppendItem = Record<
-	'href' | 'icon' | 'title' | 'category' | 'bgColor',
-	{
-		label: string;
-		placeholder?: string;
-		type: 'text' | 'color';
-		[key: string]: unknown;
-	}
+  "href" | "icon" | "title" | "category" | "bgColor",
+  {
+    label: string;
+    placeholder?: string;
+    type: "text" | "color";
+    [key: string]: unknown;
+  }
 >;

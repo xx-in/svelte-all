@@ -1,32 +1,32 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
-	interface IProps {
-		visible?: boolean;
-		children?: Snippet;
-		hideOnClickMask?: boolean;
-	}
+  import type { Snippet } from "svelte";
+  import { fade, fly } from "svelte/transition";
+  interface IProps {
+    visible?: boolean;
+    children?: Snippet;
+    hideOnClickMask?: boolean;
+  }
 
-	let { visible = $bindable(true), children, hideOnClickMask = true }: IProps = $props();
+  let { visible = $bindable(true), children, hideOnClickMask = true }: IProps = $props();
 
-	function handleClickMask(e: MouseEvent) {
-		const target = e.target as HTMLDivElement;
-		if (target?.dataset.type == 'mask') {
-			if (hideOnClickMask) {
-				visible = false;
-			}
-		}
-	}
+  function handleClickMask(e: MouseEvent) {
+    const target = e.target as HTMLDivElement;
+    if (target?.dataset.type == "mask") {
+      if (hideOnClickMask) {
+        visible = false;
+      }
+    }
+  }
 </script>
 
 {#if visible}
-	<div
-		class="fixed top-0 left-0 z-50 h-screen w-screen bg-black/50"
-		transition:fade={{ duration: 100 }}
-		ondblclick={(e) => e.stopPropagation()}
-		onclick={handleClickMask}
-		data-type="mask"
-	>
-		{@render children?.()}
-	</div>
+  <div
+    class="fixed top-0 left-0 z-50 h-screen w-screen bg-black/50"
+    transition:fade={{ duration: 100 }}
+    ondblclick={(e) => e.stopPropagation()}
+    onclick={handleClickMask}
+    data-type="mask"
+  >
+    {@render children?.()}
+  </div>
 {/if}

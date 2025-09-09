@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { twMerge } from 'tailwind-merge';
-	interface IProps {
-		class?: string;
-		onclick?: () => void;
-	}
-	let { class: className, onclick }: IProps = $props();
+  import { twMerge } from "tailwind-merge";
+  interface IProps {
+    class?: string;
+    onclick?: () => void;
+  }
+  let { class: className, onclick }: IProps = $props();
 </script>
 
 <svg class={twMerge(className)} {onclick}>
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-		><path
-			fill="currentColor"
-			d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"
-			stroke-width="0.5"
-			stroke="currentColor"
-		/></svg
-	>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+    ><path
+      fill="currentColor"
+      d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"
+      stroke-width="0.5"
+      stroke="currentColor"
+    /></svg
+  >
 </svg>
