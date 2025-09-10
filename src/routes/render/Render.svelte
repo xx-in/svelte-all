@@ -1,12 +1,14 @@
 <script module>
   import Input from "./Input.svelte";
   import Div from "./Div.svelte";
-  import Span from "./Span.svelte";
+  import Text from "./Text.svelte";
+  import Button from "./Button.svelte";
 
   const CompMap = {
     Input,
     Div,
-    Span,
+    Text,
+    Button,
   };
 
   /**
@@ -39,7 +41,7 @@
 </script>
 
 <script lang="ts">
-  import type { IRenderArray, IRenderItem } from "./type";
+  import type { IRenderArray, IRenderItem } from "./utils";
   import { typedEntries, typedKeys } from "$lib/utils";
   import Self from "./Render.svelte";
 
@@ -76,11 +78,40 @@
     };
   }
 
+  /**
+   * 将字符串安全解析为函数
+   * @param funcStr
+   */
+  function parseFunctionString(funcStr: string) {
+    funcStr = funcStr.trim();
+
+    // 匹配匿名箭头函数
+    // args: 括号里的参数或单个参数
+    // body: 大括号包裹的多行或单行表达式
+    const match = funcStr.match(/^\(?([^)]*)\)?\s*=>\s*(\{[\s\S]*\}|[^\n]+)$/);
+    if (!match) throw new Error("不是匿名箭头函数");
+
+    const [, args, body] = match;
+
+    let fn;
+    if (body.startsWith("{")) {
+      // 多行大括号体
+      fn = new Function(args, body.slice(1, -1)); // 去掉 {}
+    } else {
+      // 单行表达式体
+      fn = new Function(args, "return " + body);
+    }
+
+    return fn as (e: Event, item: IRenderItem) => void;
+  }
+
   // 处理事件
   function toEvents(item: IRenderItem) {
     let events: IRenderItem["events"] = {};
     typedEntries(item.events).forEach(([event, handler]) => {
-      events[event] = handleWrap(item, handler);
+      if (typeof handler == "string") {
+        events[event] = handleWrap(item, parseFunctionString(handler));
+      }
     });
     return events;
   }

@@ -1,71 +1,37 @@
 <script lang="ts">
+  import { exampleData, removeById, type IRenderItem } from "./utils";
   import Render, { parse } from "./Render.svelte";
-  import { type IRenderArray } from "./type";
+  import Tree from "./Tree.svelte";
+  import { type IRenderArray } from "./utils";
 
-  let compList = $state<IRenderArray>(
-    parse([
-      {
-        type: "Div",
-        value: "",
-        params: {
-          class: "flex items-center",
-        },
-        events: {},
-        children: [
-          {
-            type: "Span",
-            value: "姓名：",
-            params: {},
-            events: {},
-          },
-          {
-            type: "Input",
-            value: "123",
-            params: {
-              placeholder: "请输入姓名",
-              class: "border-none",
-            },
-            events: {
-              oninput(e) {
-                console.log(e);
-              },
-            },
-          },
-        ],
-      },
-      {
-        type: "Div",
-        value: "",
-        params: {
-          class: "flex items-center",
-        },
-        events: {},
-        children: [
-          {
-            type: "Span",
-            value: "性别：",
-            params: {},
-            events: {},
-          },
-          {
-            type: "Input",
-            value: "男",
-            params: {
-              placeholder: "请输入性别",
-              class: "border-none",
-            },
-            events: {
-              oninput(e) {
-                console.log(e);
-              },
-            },
-          },
-        ],
-      },
-    ]),
-  );
+  let compList = $state<IRenderArray>(parse(exampleData));
+
+  function handleRemove(item: IRenderItem) {
+    compList = removeById(compList, item.id);
+  }
 </script>
 
-<div class="p-2">
-  <Render {compList} />
+<svelte:head>
+  <title>渲染器</title>
+</svelte:head>
+
+<div class="h-screen w-screen text-black">
+  <div class="flex h-full">
+    <div class="w-96 bg-red-200 p-2">
+      <Tree list={compList}>
+        {#snippet children(item)}
+          <div class="flex justify-between pr-2">
+            <span class="cursor-pointer">{item.type}</span>
+            <div class="flex gap-4">
+              <button class="cursor-pointer" onclick={() => handleRemove(item)}>-</button>
+              <button class="cursor-pointer">+</button>
+            </div>
+          </div>
+        {/snippet}
+      </Tree>
+    </div>
+    <div class="flex-1 bg-green-200 px-4 py-2">
+      <Render {compList} />
+    </div>
+  </div>
 </div>
