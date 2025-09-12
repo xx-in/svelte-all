@@ -15,7 +15,7 @@
   <title>渲染器</title>
 </svelte:head>
 
-<div class="h-screen w-screen text-black">
+<div class="h-[100dvh] w-screen text-black">
   <div class="flex h-full">
     <div class="w-96 bg-red-200 p-2">
       <Tree list={compList}>

@@ -10,6 +10,6 @@
   let { children, class: className }: IProps = $props();
 </script>
 
-<section class={twMerge("flex h-screen w-screen flex-col overflow-hidden", className)}>
+<section class={twMerge("flex h-[100dvh] w-screen flex-col overflow-hidden", className)}>
   {@render children()}
 </section>

@@ -21,7 +21,7 @@
 
 {#if visible}
   <div
-    class="fixed top-0 left-0 z-50 h-screen w-screen bg-black/50"
+    class="fixed top-0 left-0 z-50 h-[100dvh] w-screen bg-black/50"
     transition:fade={{ duration: 100 }}
     ondblclick={(e) => e.stopPropagation()}
     onclick={handleClickMask}

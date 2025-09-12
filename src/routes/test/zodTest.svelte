@@ -75,7 +75,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </svelte:head>
 
-<section class="flex h-screen w-screen">
+<section class="flex h-[100dvh] w-screen">
   <div class="flex w-96 flex-col gap-2 bg-green-300">
     {#each typedKeys(inputValue) as key}
       <div class="">

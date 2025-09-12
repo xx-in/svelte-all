@@ -259,7 +259,7 @@
 <Main class="relative bg-transparent text-white">
   <video
     src="https://video.wetab.link/wallpaper-dynamic/v1gtq6c1g3z5yg0bit0zu13gy7wh.mp4"
-    class="absolute z-10 h-screen w-screen object-cover"
+    class="absolute z-10 h-[100dvh] w-screen object-cover"
     autoplay
     muted
     loop

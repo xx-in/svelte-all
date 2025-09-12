@@ -25,7 +25,7 @@
   <!-- 抽屉主体 -->
   <div
     class={twMerge(
-      `fixed top-0 right-0 z-50 flex h-screen w-8/9 flex-col 
+      `fixed top-0 right-0 z-50 flex h-[100dvh] w-8/9 flex-col 
 		bg-zinc-100 text-black shadow-lg dark:bg-zinc-900`,
       className,
     )}
