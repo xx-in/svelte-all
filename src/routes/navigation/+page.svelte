@@ -277,7 +277,7 @@
           class="group relative flex cursor-pointer snap-start flex-col items-center justify-center gap-2
 					py-2 select-none"
           href={linkItem.href}
-          target="_self"
+          target="_blank"
           data-type="linkItem"
           oncontextmenu={handleOpenContextMenu(linkItem)}
         >
