@@ -5,10 +5,14 @@
   import { twMerge } from "tailwind-merge";
 
   import type { PageProps } from "./$types";
+  import { delay } from "$lib/utils";
+  import SvgLoading from "$lib/comps/Svg/SvgLoading.svelte";
 
   let { data, params }: PageProps = $props();
 
   let blogList = $derived(data.files);
+
+  let loading = $state(false);
 
   // svelte-ignore state_referenced_locally
   let selectBlog = $state(params.blogName || blogList[0]);
@@ -21,8 +25,14 @@
       return;
     }
     const mdPath = `/contents/${selectBlog}`;
+    loading = true;
     const res = await fetch(mdPath);
     selectBlogContent = await res.text();
+    loading = false;
+    mdContainer?.scrollTo({
+      top: 0,
+      behavior: "smooth", // 平滑滚动
+    });
   }
 
   $effect(() => {
@@ -30,9 +40,10 @@
   });
 
   function handleClickBlog(blog: string) {
-    console.log("???123");
     selectBlog = blog;
   }
+
+  let mdContainer = $state<HTMLDivElement>();
 </script>
 
 <svelte:head>
@@ -62,7 +73,7 @@
     <div class="hidden h-full sm:block">
       <div class="flex h-full justify-between">
         <!-- 左边选择栏 -->
-        <div class="flex h-full w-60 flex-col shadow">
+        <div class="flex h-full w-60 flex-col border-r border-r-stone-200 dark:border-r-stone-700">
           <h2 class="pt-2 pb-2 pl-8 text-2xl font-bold">博客列表</h2>
           <ol class="overflow-auto">
             {#each blogList as blog, index}
@@ -80,10 +91,20 @@
           </ol>
         </div>
         <!-- 右侧渲染栏 -->
-        <div class="hidden w-full flex-1 overflow-auto px-4 sm:block sm:w-[60vw] sm:px-20">
-          <div class="pb-10">
-            <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
-          </div>
+        <div
+          class="hidden w-full flex-1 overflow-auto px-4 sm:block sm:w-[60vw] sm:px-20"
+          bind:this={mdContainer}
+        >
+          {#if loading}
+            <div class="flex size-full flex-col items-center justify-center gap-10">
+              <SvgLoading class="size-20" />
+              <div>加载中……</div>
+            </div>
+          {:else}
+            <div class="pb-10">
+              <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
+            </div>
+          {/if}
         </div>
       </div>
     </div>

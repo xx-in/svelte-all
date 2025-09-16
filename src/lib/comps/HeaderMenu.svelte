@@ -41,7 +41,7 @@
   let { activeRoute = "/", class: className }: IProps = $props();
 </script>
 
-<section class={twMerge("px-2 shadow-lg", className)}>
+<section class={twMerge("px-2 shadow-sm", className)}>
   <div class="flex items-center justify-between gap-2 pt-3 pb-2">
     <a class="flex items-center gap-1" href="/">
       <img src="/xx.svg" alt="" class="size-6" />

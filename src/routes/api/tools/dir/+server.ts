@@ -19,5 +19,5 @@ export const GET: RequestHandler = async ({ request }) => {
   const path = search.get("path")!;
   const dirPath = dev ? join("./static", path) : join("./build/client", path);
   const files = await readDir(dirPath);
-  return json(files.filter((name) => name.endsWith(".md")));
+  return json(files.filter((name) => name.endsWith(".md")).sort());
 };
