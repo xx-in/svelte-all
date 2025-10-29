@@ -330,8 +330,9 @@
     </div>
   </section>
   <div class="h-6"></div>
-  <div class="z-20 flex items-center justify-center pb-6 text-center">
-    <div class="flex gap-4 overscroll-auto select-none">
+  <!-- 分类列表 -->
+  <div class="z-20 flex max-w-screen items-center justify-center overflow-auto pb-6 text-center">
+    <div class="px-4 flex w-full gap-4 select-none justify-center">
       {#each typedKeys(categoryObject) as category}
         <div
           class={twMerge(
