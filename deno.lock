@@ -1443,6 +1443,7 @@
         "npm:tailwindcss@4",
         "npm:three@0.180",
         "npm:typescript@5",
+        "npm:vite-plugin-devtools-json@1",
         "npm:vite@^7.0.4",
         "npm:zod@^4.1.5"
       ]
