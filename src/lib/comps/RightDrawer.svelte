@@ -3,6 +3,7 @@
   import type { Snippet } from "svelte";
   import { fly } from "svelte/transition";
   import { twMerge } from "tailwind-merge";
+
   interface IProps {
     children: Snippet;
     visible?: boolean;

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Component, Snippet } from "svelte";
   import Self from "./Tree.svelte";
+  import type { Component, Snippet } from "svelte";
 
   type IChildrenArray = Array<any>;
 

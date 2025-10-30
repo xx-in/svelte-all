@@ -1,29 +1,30 @@
 <script lang="ts">
-  import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
-  import SvgUpload from "$lib/comps/Svg/SvgUpload.svelte";
-  import Dialog from "$lib/comps/Dialog.svelte";
-  import type { ILinkAppendItem, ILinkItem } from "./type";
-  import { POST } from "$lib/utils/client";
-  import { onMount } from "svelte";
-  import { typedKeys } from "$lib/utils";
+  import AnimatePing from "$lib/comps/AnimatePing.svelte";
   import ContextMenu, { type IContextMenuPosition } from "$lib/comps/ContextMenu.svelte";
+  import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
+  import Main from "$lib/comps/Main.svelte";
   import SvgDelete from "$lib/comps/Svg/SvgDelete.svelte";
   import SvgEdit from "$lib/comps/Svg/SvgEdit.svelte";
-  import Main from "$lib/comps/Main.svelte";
-  import { twMerge } from "tailwind-merge";
+  import SvgUpload from "$lib/comps/Svg/SvgUpload.svelte";
+  import { toPinyin, typedKeys } from "$lib/utils";
+  import { POST } from "$lib/utils/client";
+  import AppendDialog from "./LinkItemDialog.svelte";
+  import SearchBar from "./SearchBar.svelte";
+  import type { ILinkItem } from "./type";
   import cloneDeep from "lodash/cloneDeep";
-  import DialogContent from "$lib/comps/DialogContent.svelte";
-  import DialogTitle from "$lib/comps/DialogTitle.svelte";
-  import AnimatePing from "$lib/comps/AnimatePing.svelte";
-  import ColorPicker from "$lib/comps/ColorPicker.svelte";
+  import { onMount } from "svelte";
+  import { twMerge } from "tailwind-merge";
 
   let visible = $state(false);
 
   let linkList = $state<Array<ILinkItem>>([]);
 
+  /**
+   * 打开新增弹窗
+   */
   function handleOpenAppendDialog() {
     isEdit = false;
-    linkItem = {
+    activeLinkItem = {
       href: "",
       category: activeCategory ? activeCategory : "编程",
       icon: "",
@@ -33,66 +34,9 @@
     visible = true;
   }
 
-  function handleHideDiaglog() {
-    visible = false;
-  }
-
-  let linkItem = $state<ILinkItem>({
-    href: "",
-    category: "编程",
-    icon: "",
-    title: "",
-    bgColor: "bg-white",
-  });
-
-  let columns = $state<ILinkAppendItem>({
-    href: {
-      label: "链接",
-      placeholder: "请输入链接地址",
-      type: "text",
-      onblur: handleChangeHref,
-    },
-    category: {
-      label: "分类",
-      type: "text",
-      placeholder: "请输入分类",
-    },
-
-    title: {
-      label: "文本",
-      type: "text",
-      placeholder: "请输入描述文本",
-    },
-    icon: {
-      label: "图标",
-      placeholder: "请输入图标地址",
-      type: "text",
-    },
-    bgColor: {
-      type: "color",
-      label: "背景",
-    },
-  });
-
-  async function handleChangeHref() {
-    const res = await POST("/api/tools/favicon", {
-      target: linkItem.href,
-    });
-    const body = await res.json();
-    linkItem.icon = body.icon;
-    linkItem.title = body.title;
-  }
-
-  async function handleAppend() {
-    const res = await POST("/api/kv", {
-      operate: "set",
-      params: [["linkItem", linkItem.category, linkItem.href], linkItem],
-    });
-    handleGetList();
-    handleHideDiaglog();
-    activeCategory = linkItem.category;
-  }
-
+  /**
+   * 获取数据
+   */
   async function handleGetList() {
     const res = await POST("/api/kv", {
       operate: "list",
@@ -100,12 +44,6 @@
     });
     const { data } = await res.json();
     linkList = data;
-  }
-
-  onMount(init);
-
-  async function init() {
-    await handleGetList();
   }
 
   let contextMenuVisible = $state(false);
@@ -135,8 +73,18 @@
     },
   ]);
 
-  let selectLinkItem = $state<ILinkItem | null>(null);
+  let activeLinkItem = $state<ILinkItem>({
+    href: "",
+    category: "编程",
+    icon: "",
+    title: "",
+    bgColor: "bg-white",
+  });
 
+  /**
+   * 打开右键菜单
+   * @param linkItem
+   */
   function handleOpenContextMenu(linkItem: ILinkItem) {
     return (e: MouseEvent) => {
       e.preventDefault();
@@ -153,7 +101,7 @@
         };
       }
       contextMenuVisible = true;
-      selectLinkItem = linkItem;
+      activeLinkItem = cloneDeep(linkItem);
     };
   }
 
@@ -162,7 +110,7 @@
   async function handleDelete() {
     const res = await POST("/api/kv", {
       operate: "delete",
-      params: [selectLinkItem?.key],
+      params: [activeLinkItem?.key],
     });
     contextMenuVisible = false;
     handleGetList();
@@ -174,9 +122,6 @@
   async function handleEditDialog() {
     visible = true;
     isEdit = true;
-    if (selectLinkItem) {
-      linkItem = cloneDeep(selectLinkItem);
-    }
   }
 
   // 切换全屏
@@ -213,10 +158,18 @@
     return result;
   });
 
-  let activeCategory = $state("搜索");
+  let activeCategory = $state("");
 
+  /**
+   * 根据拼音和分类筛选元素
+   */
   let activeCategoryLinkList = $derived(
     linkList.filter((item) => {
+      const itemPinyin = toPinyin(item.title);
+      // 先判断拼音是否匹配
+      if (!itemPinyin.includes(filterNamePinyin)) {
+        return false;
+      }
       if (activeCategory == "") {
         return true;
       }
@@ -227,27 +180,21 @@
     }),
   );
 
-  let isEdit = $state(false);
-
   /**
-   * 编辑时
+   * 刷新数据
    */
-  async function handleEdit() {
-    const { key, ...rest } = linkItem;
-    // 因为可能修改key，所以要先删除
-    await POST("/api/kv", {
-      operate: "delete",
-      params: [key],
-    });
-    // 更新
-    const res = await POST("/api/kv", {
-      operate: "set",
-      params: [["linkItem", linkItem.category, linkItem.href], rest],
-    });
-    handleGetList();
-    handleHideDiaglog();
-    activeCategory = linkItem.category;
+  async function handleRefesh() {
+    await handleGetList();
+    activeCategory = activeLinkItem.category;
   }
+
+  let isEdit = $state(false);
+  let filterName = $state("");
+  let filterNamePinyin = $derived(toPinyin(filterName));
+
+  onMount(() => {
+    handleGetList();
+  });
 </script>
 
 <svelte:head>
@@ -264,12 +211,15 @@
     muted
     loop
   ></video>
-  <HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5"></HeaderMenu>
+  <!-- 设置40的原因是为了挡住下层的内容 -->
+  <HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5 sm:py-0">
+    <SearchBar bind:value={filterName} />
+  </HeaderMenu>
 
   <div class="h-6"></div>
   <section class="flex-1 snap-y snap-mandatory overflow-auto scroll-smooth">
     <div
-      class=" relative z-30 grid grid-cols-4 gap-6 pb-10 text-black sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8"
+      class=" relative z-30 grid grid-cols-4 gap-6 pb-10 text-black sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 grid-rows-4"
     >
       <!--  导航列表 -->
       {#each activeCategoryLinkList as linkItem (linkItem.key)}
@@ -301,7 +251,7 @@
           </AnimatePing>
 
           <div
-            class="relative left-0 z-20 w-full truncate text-center text-white"
+            class="relative left-0 z-20 w-4/5 truncate text-center text-white"
             title={linkItem.title}
           >
             <span class="z-20 text-sm">
@@ -332,7 +282,7 @@
   <div class="h-6"></div>
   <!-- 分类列表 -->
   <div class="z-20 flex max-w-screen items-center justify-center overflow-auto pb-6 text-center">
-    <div class="px-4 flex w-full gap-4 select-none justify-center">
+    <div class="flex w-full justify-center gap-4 px-4 select-none">
       {#each typedKeys(categoryObject) as category}
         <div
           class={twMerge(
@@ -348,60 +298,7 @@
   </div>
 </Main>
 
-<Dialog bind:visible hideOnClickMask={false}>
-  <DialogContent>
-    <DialogTitle title={isEdit ? "编辑导航" : "新增导航"} bind:visible></DialogTitle>
-    <div class="mt-2 flex flex-col gap-4">
-      {#each typedKeys(columns) as prop}
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <label>
-            <span class="w-20 text-right">{columns[prop].label}：</span>
-          </label>
-
-          {#if columns[prop].type == "color"}
-            <div class="flex flex-1 items-center gap-2">
-              <ColorPicker bind:value={linkItem[prop]} />
-              <input bind:value={linkItem[prop]} class="outline-none" />
-            </div>
-          {:else}
-            <input
-              class="flex-1 outline-none"
-              bind:value={linkItem[prop]}
-              placeholder={columns[prop].placeholder}
-              onblur={columns[prop].onblur as any}
-              type={columns[prop].type}
-            />
-          {/if}
-        </div>
-      {/each}
-    </div>
-
-    <!-- 操作栏 -->
-    <div class="mt-6 flex items-center justify-end gap-4">
-      <button
-        class="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-white shadow hover:bg-gray-600"
-        onclick={() => (visible = false)}
-      >
-        取消
-      </button>
-      {#if isEdit}
-        <button
-          class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
-          onclick={handleEdit}
-        >
-          确定
-        </button>
-      {:else}
-        <button
-          class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
-          onclick={handleAppend}
-        >
-          确定
-        </button>
-      {/if}
-    </div>
-  </DialogContent>
-</Dialog>
+<AppendDialog bind:visible {isEdit} bind:linkItem={activeLinkItem} onConfirm={handleRefesh} />
 
 <ContextMenu bind:visible={contextMenuVisible} position={contextMenuPosition}>
   <div class="inset-shadow-lg flex flex-col gap-2 p-1 text-sm select-none">

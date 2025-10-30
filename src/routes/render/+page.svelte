@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { exampleData, removeById, type IRenderItem } from "./utils";
   import Render, { parse } from "./Render.svelte";
   import Tree from "./Tree.svelte";
+  import { exampleData, removeById, type IRenderItem } from "./utils";
   import { type IRenderArray } from "./utils";
 
   let compList = $state<IRenderArray>(parse(exampleData));

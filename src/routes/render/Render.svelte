@@ -1,8 +1,8 @@
 <script module>
-  import Input from "./Input.svelte";
-  import Div from "./Div.svelte";
-  import Text from "./Text.svelte";
   import Button from "./Button.svelte";
+  import Div from "./Div.svelte";
+  import Input from "./Input.svelte";
+  import Text from "./Text.svelte";
 
   const CompMap = {
     Input,
@@ -41,9 +41,9 @@
 </script>
 
 <script lang="ts">
-  import type { IRenderArray, IRenderItem } from "./utils";
   import { typedEntries, typedKeys } from "$lib/utils";
   import Self from "./Render.svelte";
+  import type { IRenderArray, IRenderItem } from "./utils";
 
   /**
    * 我需要一个可以动态生成表单的工具

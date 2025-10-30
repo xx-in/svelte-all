@@ -1,14 +1,14 @@
 <script lang="ts">
+  import { setStyle } from "$lib/utils/style";
+  import { isDark } from "$lib/utils/theme";
+  import Prose from "../Prose.svelte";
+  import "./CopyPlugin.svelte";
+  import hljs from "highlight.js";
+  import darkTheme from "highlight.js/styles/atom-one-dark-reasonable.css?raw";
+  import lightTheme from "highlight.js/styles/atom-one-light.css?raw";
   import { Marked } from "marked";
   import { markedHighlight } from "marked-highlight";
-  import hljs from "highlight.js";
-  import lightTheme from "highlight.js/styles/atom-one-light.css?raw";
-  import darkTheme from "highlight.js/styles/atom-one-dark-reasonable.css?raw";
-  import "./CopyPlugin.svelte";
   import { nanoid } from "nanoid";
-  import { isDark } from "$lib/utils/theme";
-  import { setStyle } from "$lib/utils/style";
-  import Prose from "../Prose.svelte";
   import { twMerge } from "tailwind-merge";
 
   const styleId = nanoid();

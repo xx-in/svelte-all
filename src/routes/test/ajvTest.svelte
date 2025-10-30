@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { twMerge } from "tailwind-merge";
-  let styleClass = $state("");
   import Ajv from "ajv";
-  import { onMount } from "svelte";
   import localize from "ajv-i18n";
+  import { onMount } from "svelte";
+  import { twMerge } from "tailwind-merge";
+
+  let styleClass = $state("");
+
   const ajv = new Ajv({ allErrors: true });
   const schema = {
     type: "object",

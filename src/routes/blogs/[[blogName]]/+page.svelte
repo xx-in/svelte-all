@@ -2,11 +2,10 @@
   import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
   import Main from "$lib/comps/Main.svelte";
   import Markdown from "$lib/comps/Markdown/index.svelte";
-  import { twMerge } from "tailwind-merge";
-
-  import type { PageProps } from "./$types";
-  import { delay } from "$lib/utils";
   import SvgLoading from "$lib/comps/Svg/SvgLoading.svelte";
+  import { delay } from "$lib/utils";
+  import type { PageProps } from "./$types";
+  import { twMerge } from "tailwind-merge";
 
   let { data, params }: PageProps = $props();
 

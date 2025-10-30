@@ -1,7 +1,7 @@
 import { dev } from "$app/environment";
+import { json, type RequestHandler } from "@sveltejs/kit";
 import fs from "node:fs/promises";
 import { join } from "node:path";
-import { json, type RequestHandler } from "@sveltejs/kit";
 
 async function readDir(dirPath: string) {
   const files = await fs.readdir(dirPath);

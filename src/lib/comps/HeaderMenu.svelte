@@ -1,7 +1,8 @@
 <script lang="ts">
   import RightDrawer from "$lib/comps/RightDrawer.svelte";
-  import { twMerge } from "tailwind-merge";
   import SvgMore from "./Svg/SvgMore.svelte";
+  import type { Snippet } from "svelte";
+  import { twMerge } from "tailwind-merge";
 
   let routes = [
     {
@@ -36,13 +37,14 @@
   interface IProps {
     activeRoute?: string;
     class?: string;
+    children?: Snippet;
   }
 
-  let { activeRoute = "/", class: className }: IProps = $props();
+  let { activeRoute = "/", class: className, children }: IProps = $props();
 </script>
 
-<section class={twMerge("px-2 shadow-sm", className)}>
-  <div class="flex items-center justify-between gap-2 pt-3 pb-2">
+<section class={twMerge("p-3 shadow-sm", className)}>
+  <div class="flex items-center justify-between gap-2">
     <a class="flex items-center gap-1" href="/">
       <img src="/xx.svg" alt="" class="size-6" />
       <span class="pt-1 text-sm">怀疑一切，是通往知识的第一步</span>
@@ -70,6 +72,9 @@
     </RightDrawer>
 
     <!-- pc 端显示 -->
+    <div class="hidden flex-1 sm:flex justify-center">
+      {@render children?.()}
+    </div>
     <div class="hidden justify-end gap-6 pr-4 sm:flex">
       {#each routes as { text, href } (href)}
         <a {href} class={twMerge(["hover:text-sky-500", activeRoute == href && "text-sky-500"])}

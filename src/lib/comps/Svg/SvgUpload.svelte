@@ -1,5 +1,6 @@
 <script lang="ts">
   import { twMerge } from "tailwind-merge";
+
   interface IProps {
     class?: string;
     onclick?: () => void;

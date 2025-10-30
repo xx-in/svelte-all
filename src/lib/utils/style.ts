@@ -1,15 +1,17 @@
 import { nanoid } from "nanoid";
 
+const stylesMap = {} as Record<string, HTMLStyleElement>;
 function _setStyle() {
-  const stylesMap = {} as Record<string, HTMLStyleElement>;
   function inner(styleContent: string, id: string = nanoid()) {
     if (stylesMap[id]) {
       stylesMap[id].textContent = styleContent;
     } else {
       const style = document.createElement("style");
+      style.id = id;
       style.textContent = styleContent;
       document.head.appendChild(style);
     }
+    return id;
   }
   return inner;
 }
@@ -18,6 +20,15 @@ function _setStyle() {
  * 使用css修改全局样式
  */
 export const setStyle = _setStyle();
+
+/**
+ * 移除通过css添加的全局样式
+ * @param id
+ */
+export const removeStyle = (id: string) => {
+  const cur = document.getElementById(id);
+  cur && cur.remove();
+};
 
 /**
  *  随机的深色颜色

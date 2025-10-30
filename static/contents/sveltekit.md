@@ -28,6 +28,7 @@ export const ssr = false;
  * 文件中其他部分内容已省略
  */
 import adapter from "@sveltejs/adapter-static";
+
 const config = {
   kit: {
     adapter: adapter({

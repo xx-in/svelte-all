@@ -1,3 +1,5 @@
+import { pinyin } from "pinyin";
+
 /**
  * 同 Object.keys 但是类型更安全
  * @param obj
@@ -20,4 +22,18 @@ export function delay(time: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
   });
+}
+
+/**
+ * 将字符串处理为拼音
+ * @param text
+ * @returns
+ */
+export function toPinyin(text: string) {
+  const result = pinyin(text.toLowerCase(), {
+    style: pinyin.STYLE_NORMAL,
+  })
+    .flat()
+    .join("");
+  return result;
 }

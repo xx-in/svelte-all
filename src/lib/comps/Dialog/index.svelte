@@ -1,13 +1,21 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { fade, fly } from "svelte/transition";
+  import { twMerge, type ClassNameValue } from "tailwind-merge";
+
   interface IProps {
     visible?: boolean;
     children?: Snippet;
     hideOnClickMask?: boolean;
+    class?: ClassNameValue;
   }
 
-  let { visible = $bindable(true), children, hideOnClickMask = true }: IProps = $props();
+  let {
+    visible = $bindable(true),
+    children,
+    hideOnClickMask = true,
+    class: className,
+  }: IProps = $props();
 
   function handleClickMask(e: MouseEvent) {
     const target = e.target as HTMLDivElement;
@@ -27,6 +35,13 @@
     onclick={handleClickMask}
     data-type="mask"
   >
-    {@render children?.()}
+    <div
+      class={twMerge(
+        "flex flex-col max-w-4/5 mx-auto mt-20 rounded-xl max-h-6/7 bg-white overflow-hidden dark:bg-gray-800 dark:text-white gap-6 w-auto",
+        className,
+      )}
+    >
+      {@render children?.()}
+    </div>
   </div>
 {/if}

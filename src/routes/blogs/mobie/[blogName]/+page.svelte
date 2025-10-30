@@ -12,6 +12,6 @@
 <svelte:head>
   <title>{data.blogName}</title>
 </svelte:head>
-<div class="mx-auto px-8">
+<div class="mx-auto px-8 pt-6">
   <Markdown raw={data.detailContent}></Markdown>
 </div>
