@@ -22,6 +22,10 @@
       href: "/render",
       text: "渲染器",
     },
+    {
+      href: "/temp",
+      text: "临时",
+    },
   ];
 
   let menuVisible = $state(false);

@@ -165,10 +165,9 @@
    */
   let activeCategoryLinkList = $derived(
     linkList.filter((item) => {
-      const itemPinyin = toPinyin(item.title);
-      // 先判断拼音是否匹配
-      if (!itemPinyin.includes(filterNamePinyin)) {
-        return false;
+      if (filterNamePinyin) {
+        const itemPinyin = toPinyin(item.title);
+        return itemPinyin.includes(filterNamePinyin);
       }
       if (activeCategory == "") {
         return true;
