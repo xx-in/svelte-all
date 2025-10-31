@@ -6,6 +6,7 @@
   import SvgDelete from "$lib/comps/Svg/SvgDelete.svelte";
   import SvgEdit from "$lib/comps/Svg/SvgEdit.svelte";
   import SvgUpload from "$lib/comps/Svg/SvgUpload.svelte";
+  import { addToast } from "$lib/store";
   import { toPinyin, typedKeys } from "$lib/utils";
   import { POST } from "$lib/utils/client";
   import AppendDialog from "./LinkItemDialog.svelte";
@@ -113,7 +114,8 @@
       params: [activeLinkItem?.key],
     });
     contextMenuVisible = false;
-    handleGetList();
+    await handleGetList();
+    addToast("删除导航成功", "success");
   }
 
   /**

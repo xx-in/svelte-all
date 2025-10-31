@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/typography';
+
+@font-face {
+  font-family: "monoton";
+  src: url("/fonts/Monoton-Regular.ttf") format("TrueType");
+}
+
+@theme {
+  /* --animate-bounce-sm: bounce-sm 0.3s infinite; */
+  --animate-bounce-sm: bounce-sm 0.3s infinite ease-in-out;
+
+  @keyframes bounce-sm {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-3px); /* 上移 5px，小幅度 */
+    }
+  }
+
+  --animate-wiggle: wiggle 500ms ease-in-out infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+
+  --animate-ping-deep: ping-deep 1.5s ease-out infinite;
+  @keyframes ping-deep {
+    0% {
+      transform: scale(0);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+}

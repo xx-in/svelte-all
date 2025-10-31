@@ -4,6 +4,7 @@
   import DialogFooter from "$lib/comps/Dialog/DialogFooter.svelte";
   import DialogTitle from "$lib/comps/Dialog/DialogTitle.svelte";
   import Dialog from "$lib/comps/Dialog/index.svelte";
+  import { addToast } from "$lib/store";
   import { typedKeys } from "$lib/utils";
   import { POST } from "$lib/utils/client";
   import type { ILinkAppendItem, ILinkItem } from "./type";
@@ -12,7 +13,7 @@
     visible: boolean;
     isEdit: boolean;
     linkItem: ILinkItem;
-    onConfirm?: (item: ILinkItem) => void;
+    onConfirm?: (item: ILinkItem) => Promise<void>;
     onCancel?: () => void;
   }
 
@@ -79,7 +80,8 @@
       params: [newKey, rest],
     });
     handleClose();
-    onConfirm?.(linkItem);
+    await onConfirm?.(linkItem);
+    addToast("修改导航成功", "success");
   }
 
   /**
@@ -91,6 +93,7 @@
       operate: "set",
       params: [key, linkItem],
     });
+    addToast("新增导航成功", "success");
     handleClose();
     onConfirm?.(linkItem);
   }
