@@ -6,5 +6,7 @@
   let { children } = $props();
 </script>
 
-<Toast />
-{@render children?.()}
+<main class="w-screen h-screen overflow-hidden">
+  <Toast />
+  {@render children?.()}
+</main>

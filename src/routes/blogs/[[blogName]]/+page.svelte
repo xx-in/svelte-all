@@ -69,7 +69,7 @@
       </ol>
     </div>
     <!-- PC 端 -->
-    <div class="hidden h-full sm:block">
+    <div class="hidden h-full sm:block overflow-hidden">
       <div class="flex h-full justify-between">
         <!-- 左边选择栏 -->
         <div class="flex h-full w-60 flex-col border-r border-r-stone-200 dark:border-r-stone-700">
@@ -91,7 +91,7 @@
         </div>
         <!-- 右侧渲染栏 -->
         <div
-          class="hidden w-full flex-1 overflow-auto px-4 sm:block sm:w-[60vw] sm:px-20"
+          class="hidden flex-1 overflow-auto px-4 sm:block sm:w-[60vw] sm:px-20 max-h-screen"
           bind:this={mdContainer}
         >
           {#if loading}
