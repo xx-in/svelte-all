@@ -2,6 +2,7 @@
   import AnimatePing from "$lib/comps/AnimatePing.svelte";
   import ContextMenu, { type IContextMenuPosition } from "$lib/comps/ContextMenu.svelte";
   import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
+  import Layout from "$lib/comps/Layout.svelte";
   import Main from "$lib/comps/Main.svelte";
   import SvgDelete from "$lib/comps/Svg/SvgDelete.svelte";
   import SvgEdit from "$lib/comps/Svg/SvgEdit.svelte";
@@ -204,100 +205,106 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 <svelte:body ondblclick={toggleFullScreen} />
-<Main class="relative bg-transparent text-white">
-  <video
-    src="https://video.wetab.link/wallpaper-dynamic/v1gtq6c1g3z5yg0bit0zu13gy7wh.mp4"
-    class="absolute z-10 h-[100dvh] w-screen object-cover"
-    autoplay
-    muted
-    loop
-  ></video>
-  <!-- 设置40的原因是为了挡住下层的内容 -->
-  <HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5 sm:py-0">
-    <SearchBar bind:value={filterName} />
-  </HeaderMenu>
+<video
+  src="https://video.wetab.link/wallpaper-dynamic/v1gtq6c1g3z5yg0bit0zu13gy7wh.mp4"
+  class="absolute z-10 h-[100dvh] w-screen object-cover"
+  autoplay
+  muted
+  loop
+></video>
+<Layout class="z-20 dark:bg-black/10">
+  {#snippet top()}
+    <HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5 sm:py-0">
+      <SearchBar bind:value={filterName} />
+    </HeaderMenu>
+  {/snippet}
 
-  <div class="h-6"></div>
-  <section class="flex-1 snap-y snap-mandatory overflow-auto scroll-smooth">
-    <div
-      class=" relative z-30 grid grid-cols-4 gap-6 pb-10 text-black sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 grid-rows-4"
-    >
-      <!--  导航列表 -->
-      {#each activeCategoryLinkList as linkItem (linkItem.key)}
-        <a
-          class="group relative flex cursor-pointer snap-start flex-col items-center justify-center gap-2
+  <Layout class="py-4">
+    <section class="flex-1 snap-y snap-mandatory overflow-auto scroll-smooth">
+      <div
+        class=" relative z-30 grid grid-cols-4 gap-6 pb-10 text-black sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 grid-rows-4"
+      >
+        <!--  导航列表 -->
+        {#each activeCategoryLinkList as linkItem (linkItem.key)}
+          <a
+            class="group relative flex cursor-pointer snap-start flex-col items-center justify-center gap-2
 					py-2 select-none"
-          href={linkItem.href}
-          target="_blank"
-          data-type="linkItem"
-          oncontextmenu={handleOpenContextMenu(linkItem)}
+            href={linkItem.href}
+            target="_blank"
+            data-type="linkItem"
+            oncontextmenu={handleOpenContextMenu(linkItem)}
+          >
+            <AnimatePing class="z-20 mt-2 size-10  sm:size-12 ">
+              {#if linkItem.icon.includes("http")}
+                <img
+                  src={linkItem.icon}
+                  alt={linkItem.title}
+                  class={twMerge("size-full rounded-md", linkItem.bgColor)}
+                />
+              {:else}
+                <div
+                  class={twMerge(
+                    "flex size-full items-center justify-center rounded-md text-white",
+                    linkItem.bgColor,
+                  )}
+                >
+                  {linkItem.title[0]}
+                </div>
+              {/if}
+            </AnimatePing>
+
+            <div
+              class="relative left-0 z-20 w-4/5 truncate text-center text-white"
+              title={linkItem.title}
+            >
+              <span class="z-20 text-sm">
+                {linkItem.title}
+              </span>
+            </div>
+          </a>
+        {/each}
+
+        <!-- 添加按钮 -->
+        <div
+          class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
+          onclick={handleOpenAppendDialog}
+          title="新增导航"
         >
-          <AnimatePing class="z-20 mt-2 size-10  sm:size-12 ">
-            {#if linkItem.icon.includes("http")}
-              <img
-                src={linkItem.icon}
-                alt={linkItem.title}
-                class={twMerge("size-full rounded-md", linkItem.bgColor)}
-              />
-            {:else}
-              <div
-                class={twMerge(
-                  "flex size-full items-center justify-center rounded-md text-white",
-                  linkItem.bgColor,
-                )}
-              >
-                {linkItem.title[0]}
-              </div>
-            {/if}
+          <AnimatePing class="z-20 mt-2 size-10 sm:size-12">
+            <div class="size-full rounded-xl bg-green-500">
+              <SvgUpload class="size-full"></SvgUpload>
+            </div>
           </AnimatePing>
 
-          <div
-            class="relative left-0 z-20 w-4/5 truncate text-center text-white"
-            title={linkItem.title}
-          >
-            <span class="z-20 text-sm">
-              {linkItem.title}
-            </span>
+          <div class="relative z-20 w-full truncate px-4 text-center text-white">
+            <span class="z-20 text-sm">新增导航</span>
           </div>
-        </a>
-      {/each}
-
-      <!-- 添加按钮 -->
-      <div
-        class="group relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2"
-        onclick={handleOpenAppendDialog}
-        title="新增导航"
-      >
-        <AnimatePing class="z-20 mt-2 size-10 sm:size-12">
-          <div class="size-full rounded-xl bg-green-500">
-            <SvgUpload class="size-full"></SvgUpload>
-          </div>
-        </AnimatePing>
-
-        <div class="relative z-20 w-full truncate px-4 text-center text-white">
-          <span class="z-20 text-sm">新增导航</span>
         </div>
       </div>
+    </section>
+  </Layout>
+
+  {#snippet bottom()}
+    <div class="px-4 pb-4">
+      <div class="flex gap-4 pb-3 sm:pb-0 w-full overflow-scroll justify-center">
+        {#each typedKeys(categoryObject) as category}
+          <div
+            class={twMerge(
+              "flex cursor-pointer items-center justify-center rounded-sm bg-black px-2 py-0.5 hover:text-sky-500",
+              activeCategory == category && "text-sky-500",
+            )}
+            onmouseover={() => {
+              activeCategory = category;
+              filterName = "";
+            }}
+          >
+            {categoryObject[category]}
+          </div>
+        {/each}
+      </div>
     </div>
-  </section>
-  <div class="h-6"></div>
-  <!-- 分类列表 -->
-  <div class="z-20 flex max-w-screen items-center justify-center overflow-auto pb-6 text-center">
-    <div class="flex w-full justify-center gap-4 px-4 select-none">
-      {#each typedKeys(categoryObject) as category}
-        <div
-          class={twMerge(
-            "flex cursor-pointer items-center justify-center rounded-sm bg-black px-2 py-0.5 hover:text-sky-500",
-            activeCategory == category && "text-sky-500",
-          )}
-          onmouseover={() => (activeCategory = category)}
-        >
-          {categoryObject[category]}
-        </div>
-      {/each}
-    </div>
-  </div>
-</Main>
+  {/snippet}
+</Layout>
 
 <AppendDialog bind:visible {isEdit} bind:linkItem={activeLinkItem} onConfirm={handleRefesh} />
 

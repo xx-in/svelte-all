@@ -47,7 +47,7 @@
   let { activeRoute = "/", class: className, children }: IProps = $props();
 </script>
 
-<section class={twMerge("p-3 shadow-sm", className)}>
+<section class={twMerge("h-12 shadow-sm flex flex-col justify-center px-3", className)}>
   <div class="flex items-center justify-between gap-2">
     <a class="flex items-center gap-1" href="/">
       <img src="/xx.svg" alt="" class="size-6" />
@@ -81,7 +81,9 @@
     </div>
     <div class="hidden justify-end gap-6 pr-4 sm:flex">
       {#each routes as { text, href } (href)}
-        <a {href} class={twMerge(["hover:text-sky-500", activeRoute == href && "text-sky-500"])}
+        <a
+          {href}
+          class={twMerge(["hover:text-sky-500", activeRoute.startsWith(href) && "text-sky-500"])}
           >{text}</a
         >
       {/each}

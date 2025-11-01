@@ -10,6 +10,6 @@
   let { children, class: className }: IProps = $props();
 </script>
 
-<div class={twMerge(" text-black  px-4 flex-1", className)}>
+<div class={twMerge(" text-black  px-4 flex-1 dark:text-white", className)}>
   {@render children?.()}
 </div>

@@ -12,7 +12,7 @@
 
 <div
   class={twMerge(
-    "border flex justify-end border-stone-200 font-bold dark:border-gray-600 flex-none px-4 py-2 gap-4",
+    "border-t flex justify-end border-stone-200 font-bold dark:border-gray-700/50 flex-none px-4 py-2 gap-4",
     className,
   )}
 >

@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { isDark } from "$lib/store/theme.svelte";
   import { setStyle } from "$lib/utils/style";
-  import { isDark } from "$lib/utils/theme";
   import Prose from "../Prose.svelte";
   import "./CopyPlugin.svelte";
   import hljs from "highlight.js";
@@ -15,7 +15,8 @@
   import { twMerge } from "tailwind-merge";
 
   const styleId = nanoid();
-  isDark.subscribe((isDark) => {
+
+  $effect(() => {
     const styleContent = isDark ? darkTheme : lightTheme;
     setStyle(styleContent, styleId);
   });

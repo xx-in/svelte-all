@@ -104,7 +104,7 @@
 </script>
 
 <Dialog bind:visible hideOnClickMask={false} class="w-1/2">
-  <DialogTitle title={isEdit ? "编辑导航" : "新增导航"} bind:visible class="border"></DialogTitle>
+  <DialogTitle title={isEdit ? "编辑导航" : "新增导航"} bind:visible></DialogTitle>
   <DialogContent>
     <div class="flex flex-col gap-4">
       {#each typedKeys(columns) as prop}

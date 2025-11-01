@@ -16,13 +16,13 @@
 
 <div
   class={twMerge(
-    "flex justify-between border-b-1 border-stone-200 pt-4 pb-2 font-bold dark:border-gray-600 flex-none px-4",
+    "flex justify-between border-b border-stone-200 pt-4 pb-2 font-bold dark:border-gray-700/50 flex-none px-4",
     className,
   )}
 >
   <div class="text-lg">{title}</div>
   <button
-    class="flex size-6 cursor-pointer items-center justify-center rounded-full p-1 hover:bg-red-50 hover:text-red-500 duration-100"
+    class="flex size-6 cursor-pointer items-center justify-center rounded-full p-1 hover:bg-red-50 hover:text-red-500 duration-100 dark:hover:bg-stone-600 dark:hover:text-red-600"
     onclick={handleClose}
   >
     ✕
