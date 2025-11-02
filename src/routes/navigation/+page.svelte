@@ -212,7 +212,7 @@
   muted
   loop
 ></video>
-<Layout class="z-20 dark:bg-black/10">
+<Layout class="z-20 dark:bg-black/10 text-white">
   {#snippet top()}
     <HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5 sm:py-0">
       <SearchBar bind:value={filterName} />
@@ -285,7 +285,7 @@
   </Layout>
 
   {#snippet bottom()}
-    <div class="px-4 pb-4">
+    <div class="px-4 pb-4 text-white">
       <div class="flex gap-4 pb-3 sm:pb-0 w-full overflow-scroll justify-center">
         {#each typedKeys(categoryObject) as category}
           <div
