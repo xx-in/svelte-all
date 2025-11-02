@@ -9,10 +9,11 @@
   let { children, class: className }: IProps = $props();
 
   let classList = twMerge([
-    "md:max-w-2/3",
+    "md:max-w-full",
     "prose dark:prose-invert mx-auto",
-    "prose-h1:my-3 prose-h2:my-4",
-    "prose-pre:mb-2 prose-pre:p-0 prose-pre:relative",
+    "prose-h1:my-6 prose-h2:my-4",
+    "prose-pre:mb-8 prose-pre:p-0 prose-pre:relative",
+    "prose-pre:shadow prose-pre:border dark:prose-pre:border-stone-700",
     className,
   ]);
 </script>

@@ -83,8 +83,10 @@
       {#each routes as { text, href } (href)}
         <a
           {href}
-          class={twMerge(["hover:text-sky-500", activeRoute.startsWith(href) && "text-sky-500"])}
-          >{text}</a
+          class={twMerge([
+            "hover:text-sky-500",
+            activeRoute.startsWith(href) && "text-sky-500 underline underline-offset-8",
+          ])}>{text}</a
         >
       {/each}
     </div>

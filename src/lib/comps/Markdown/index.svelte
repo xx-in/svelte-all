@@ -1,24 +1,26 @@
 <script lang="ts">
-  import { isDark } from "$lib/store/theme.svelte";
-  import { setStyle } from "$lib/utils/style";
+  import { getIsDark } from "$lib/store/theme.svelte";
+  import { removeStyle, setStyle } from "$lib/utils/style";
   import Prose from "../Prose.svelte";
   import "./CopyPlugin.svelte";
   import hljs from "highlight.js";
-  import darkTheme from "highlight.js/styles/atom-one-dark-reasonable.css?raw";
   import lightTheme from "highlight.js/styles/atom-one-light.css?raw";
+  import darkTheme from "highlight.js/styles/github-dark.min.css?raw";
   import katex from "katex";
   import "katex/dist/katex.min.css";
   import { Marked } from "marked";
   import { markedHighlight } from "marked-highlight";
   // ✅ 样式文件
-  import { nanoid } from "nanoid";
   import { twMerge } from "tailwind-merge";
 
-  const styleId = nanoid();
+  let styleId = $state<string>("");
 
   $effect(() => {
-    const styleContent = isDark ? darkTheme : lightTheme;
-    setStyle(styleContent, styleId);
+    const styleContent = getIsDark() ? darkTheme : lightTheme;
+    if (styleId) {
+      removeStyle(styleId);
+    }
+    styleId = setStyle(styleContent, styleId);
   });
 
   interface IProps {
@@ -36,7 +38,7 @@
       langPrefix: "hljs language-",
       highlight(code, lang, info) {
         const language = hljs.getLanguage(lang) ? lang : "plaintext";
-        let wrapper = `<div class="max-h-[50vh] overflow-auto pt-6">`;
+        let wrapper = `<div class="max-h-[50vh] overflow-auto pt-10">`;
         wrapper += `<copy-plugin lang="${lang}" code="${encodeURIComponent(code)}"></copy-plugin>`;
         wrapper += hljs.highlight(code, { language }).value;
         wrapper += `</div>`;

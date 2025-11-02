@@ -286,7 +286,7 @@
 
   {#snippet bottom()}
     <div class="px-4 pb-4 text-white">
-      <div class="flex gap-4 pb-3 sm:pb-0 w-full overflow-scroll justify-center">
+      <div class="flex gap-4 pb-3 sm:pb-0 w-full overflow-auto justify-center">
         {#each typedKeys(categoryObject) as category}
           <div
             class={twMerge(

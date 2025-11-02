@@ -1,8 +1,9 @@
 import { nanoid } from "nanoid";
 
 const stylesMap = {} as Record<string, HTMLStyleElement>;
+
 function _setStyle() {
-  function inner(styleContent: string, id: string = nanoid()) {
+  function inner(styleContent: string, id: string) {
     if (stylesMap[id]) {
       stylesMap[id].textContent = styleContent;
     } else {
@@ -27,7 +28,11 @@ export const setStyle = _setStyle();
  */
 export const removeStyle = (id: string) => {
   const cur = document.getElementById(id);
-  cur && cur.remove();
+  console.log("??cur", cur);
+  if (cur) {
+    cur.remove();
+    console.log("删除成功");
+  }
 };
 
 /**

@@ -17,7 +17,7 @@
 <Main>
   <Layout>
     {#snippet top()}
-      <HeaderMenu class="dark:bg-stone-900" {activeRoute}></HeaderMenu>
+      <HeaderMenu class="dark:bg-stone-800" {activeRoute}></HeaderMenu>
     {/snippet}
     {@render children()}
   </Layout>
