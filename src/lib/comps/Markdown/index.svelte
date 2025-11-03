@@ -83,7 +83,7 @@
   let html = $derived(renderMarkdownWithLatex(raw));
 </script>
 
-<Prose class={twMerge("pb-20", className)}>
+<Prose class={twMerge("pb-20 pr-4", className)}>
   {@html html}
 </Prose>
 
