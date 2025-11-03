@@ -7,7 +7,7 @@
   let { children } = $props();
 </script>
 
-<Main>
+<Main class="@container">
   <Toast />
   {@render children?.()}
 </Main>

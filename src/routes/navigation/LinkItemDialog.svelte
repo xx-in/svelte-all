@@ -1,9 +1,9 @@
 <script lang="ts">
   import ColorPicker from "$lib/comps/ColorPicker.svelte";
+  import Dialog from "$lib/comps/Dialog/Dialog.svelte";
   import DialogContent from "$lib/comps/Dialog/DialogContent.svelte";
   import DialogFooter from "$lib/comps/Dialog/DialogFooter.svelte";
   import DialogTitle from "$lib/comps/Dialog/DialogTitle.svelte";
-  import Dialog from "$lib/comps/Dialog/index.svelte";
   import { addToast } from "$lib/store";
   import { typedKeys } from "$lib/utils";
   import { POST } from "$lib/utils/client";

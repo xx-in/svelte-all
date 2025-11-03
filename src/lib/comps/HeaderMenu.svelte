@@ -19,6 +19,10 @@
       text: "测试页",
     },
     {
+      href: "/compList",
+      text: "组件列表",
+    },
+    {
       href: "/render",
       text: "渲染器",
     },
@@ -85,7 +89,7 @@
           {href}
           class={twMerge([
             "hover:text-sky-500",
-            activeRoute.startsWith(href) && "text-sky-500 underline underline-offset-8",
+            activeRoute.startsWith(href) && "text-sky-500 underline underline-offset-18",
           ])}>{text}</a
         >
       {/each}

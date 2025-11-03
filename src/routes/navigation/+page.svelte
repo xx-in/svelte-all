@@ -285,12 +285,12 @@
   </Layout>
 
   {#snippet bottom()}
-    <div class="px-4 pb-4 text-white">
+    <div class="px-4 pt-1 pb-4 text-white">
       <div class="flex gap-4 pb-3 sm:pb-0 w-full overflow-auto justify-center">
         {#each typedKeys(categoryObject) as category}
           <div
             class={twMerge(
-              "flex cursor-pointer items-center justify-center rounded-sm bg-black px-2 py-0.5 hover:text-sky-500",
+              "flex cursor-pointer items-center justify-center rounded-sm bg-black px-2 py-0.5 hover:text-sky-500 tracking-widest",
               activeCategory == category && "text-sky-500",
             )}
             onmouseover={() => {

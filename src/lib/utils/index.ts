@@ -1,5 +1,7 @@
 import { pinyin } from "pinyin";
 
+export * from "./clipboard";
+
 /**
  * 同 Object.keys 但是类型更安全
  * @param obj

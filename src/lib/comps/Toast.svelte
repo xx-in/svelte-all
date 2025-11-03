@@ -9,13 +9,13 @@
   function typeClasses(type: string) {
     switch (type) {
       case "success":
-        return "bg-white/90 text-green-800";
+        return "bg-white/90 text-green-600 bg-green-50";
       case "error":
-        return "bg-white/90 text-red-800";
+        return "bg-white/90 text-red-600 bg-red-50";
       case "warning":
-        return "bg-white/90 text-orange-800";
+        return "bg-white/90 text-orange-600 bg-orange-50";
       default:
-        return "bg-white/90 text-stone-800"; // info
+        return "bg-white/90 text-stone-600 bg-stone-50"; // info
     }
   }
 </script>

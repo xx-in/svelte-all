@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Markdown from "$lib/comps/Markdown/index.svelte";
+  import Markdown from "$lib/comps/Markdown/Markdown.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();

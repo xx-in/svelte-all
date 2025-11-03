@@ -83,7 +83,7 @@
   let html = $derived(renderMarkdownWithLatex(raw));
 </script>
 
-<Prose class={twMerge("pb-20 pr-4", className)}>
+<Prose class={twMerge("pb-20 md:pr-10", className)}>
   {@html html}
 </Prose>
 
@@ -101,6 +101,13 @@
 
   :global(.katex) {
     font-size: 1.05em;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  @media (max-width: 640px) {
+    :global(.katex) {
+      padding-bottom: 10px;
+    }
   }
 </style>

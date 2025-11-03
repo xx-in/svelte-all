@@ -1,8 +1,9 @@
 <script lang="ts">
+  import DragableLayout from "$lib/comps/DragableLayout.svelte";
   import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
   import Layout from "$lib/comps/Layout.svelte";
   import Main from "$lib/comps/Main.svelte";
-  import Markdown from "$lib/comps/Markdown/index.svelte";
+  import Markdown from "$lib/comps/Markdown/Markdown.svelte";
   import SvgLoading from "$lib/comps/Svg/SvgLoading.svelte";
   import { delay } from "$lib/utils";
   import type { PageProps } from "./$types";
@@ -47,7 +48,7 @@
 </script>
 
 <svelte:head>
-  <title>博客列表</title>
+  <title>博客 - {selectBlog.split(".")[0]}</title>
 </svelte:head>
 
 <!-- 移动端 -->
@@ -67,44 +68,43 @@
 <!-- PC 端 -->
 <div class="hidden h-full sm:block overflow-hidden">
   <div class="flex h-full justify-between">
-    <!-- 左边选择栏 -->
-    <div
-      class="flex h-full w-60 flex-col border-r border-r-stone-200 dark:border-r-stone-800 dark:bg-stone-900 pt-2"
-    >
-      <!-- <h2 class="pt-2 pb-2 pl-8 text-2xl font-bold">博客列表</h2> -->
-      <ol class="overflow-auto">
-        {#each blogList as blog, index}
-          <li
-            class={twMerge(
-              "cursor-pointer py-3 pl-8",
-              blog == selectBlog && "text-blue-500 underline underline-offset-4",
-              "hover:text-blue-500",
-            )}
-            onclick={() => handleClickBlog(blog)}
-          >
-            <a href={"/blogs/" + blog}>
-              <span class="">
-                {index + 1}. {blog}
-              </span>
-            </a>
-          </li>
-        {/each}
-      </ol>
-    </div>
-    <!-- 右侧渲染栏 -->
-    <Layout class="py-4 px-20">
-      <Layout class="">
-        {#if loading}
-          <div class="flex size-full flex-col items-center justify-center gap-10">
-            <SvgLoading class="size-20" />
-            <div>加载中……</div>
-          </div>
-        {:else}
-          <div class="pb-10">
-            <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
-          </div>
-        {/if}
+    <DragableLayout>
+      <!-- 左边选择栏 -->
+      {#snippet left()}
+        <ol class="overflow-auto pt-3">
+          {#each blogList as blog, index}
+            <li
+              class={twMerge(
+                "cursor-pointer py-3 pl-8",
+                blog == selectBlog && "text-blue-500 underline underline-offset-4",
+                "hover:text-blue-500",
+              )}
+              onclick={() => handleClickBlog(blog)}
+            >
+              <a href={"/blogs/" + blog}>
+                <span class="">
+                  {index + 1}. {blog}
+                </span>
+              </a>
+            </li>
+          {/each}
+        </ol>
+      {/snippet}
+      <!-- 右侧渲染栏 -->
+      <Layout class="py-5 pl-10 pr-1">
+        <Layout>
+          {#if loading}
+            <div class="flex size-full flex-col items-center justify-center gap-10">
+              <SvgLoading class="size-20" />
+              <div>加载中……</div>
+            </div>
+          {:else}
+            <div class="pb-10">
+              <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
+            </div>
+          {/if}
+        </Layout>
       </Layout>
-    </Layout>
+    </DragableLayout>
   </div>
 </div>
