@@ -4,9 +4,17 @@ let isDark = $state(mediaQuery.matches);
 
 export const getIsDark = () => isDark;
 
-export const setIsDark = (value: boolean) => (isDark = value);
+export const setIsDark = (value: boolean) => {
+  isDark = value;
+  if (value) {
+    document.documentElement.dataset.theme = "dark";
+  } else {
+    document.documentElement.dataset.theme = "light";
+  }
+};
+
+setIsDark(isDark);
 
 mediaQuery.addEventListener("change", (e) => {
-  isDark = e.matches;
-  console.log("??change", isDark);
+  setIsDark(e.matches);
 });

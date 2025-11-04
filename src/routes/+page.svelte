@@ -1,5 +1,5 @@
 <script>
-  import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
+  import HeaderMenu from "$lib/comps/HeaderMenu/HeaderMenu.svelte";
 </script>
 
 <svelte:head>

@@ -100,6 +100,9 @@
   }
 </script>
 
+<svelte:head>
+  <title>组件列表 - 按钮组件</title>
+</svelte:head>
 <!-- <Button class={blue_fill} onclick={handleGenarate}>生成全部</Button> -->
 <Card caption={"按钮组件 - blue"}>
   <Grid>
@@ -1017,4 +1020,13 @@
         )}>按钮 stone_plain</Button
     ></Grid
   >
+</Card>
+
+<Card>
+  <Grid>
+    <Button
+      class="text-white bg-rose-500 border-none disabled:text-stone-100 disabled:bg-rose-300 hover:bg-rose-600 active:bg-rose-500 dark:text-stone-300 dark:bg-rose-700 dark:disabled:text-stone-400 dark:disabled:bg-rose-900 dark:hover:text-stone-100 dark:hover:bg-rose-600 dark:active:text-stone-50 dark:active:bg-rose-700 rounded-full"
+      >圆角按钮</Button
+    >
+  </Grid>
 </Card>

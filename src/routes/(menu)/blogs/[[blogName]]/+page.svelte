@@ -1,6 +1,6 @@
 <script lang="ts">
   import DragableLayout from "$lib/comps/DragableLayout.svelte";
-  import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
+  import HeaderMenu from "$lib/comps/HeaderMenu/HeaderMenu.svelte";
   import Layout from "$lib/comps/Layout.svelte";
   import Main from "$lib/comps/Main.svelte";
   import Markdown from "$lib/comps/Markdown/Markdown.svelte";

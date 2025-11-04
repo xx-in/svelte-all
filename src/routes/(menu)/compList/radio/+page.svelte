@@ -1,8 +1,8 @@
 <script lang="ts">
   import Card from "$lib/comps/Card/Card.svelte";
   import Flex from "$lib/comps/Flex/Flex.svelte";
-  import Radio from "$lib/comps/Radio.svelte";
-  import RadioGroup from "$lib/comps/RadioGroup.svelte";
+  import Radio from "$lib/comps/Radio/Radio.svelte";
+  import RadioGroup from "$lib/comps/Radio/RadioGroup.svelte";
 
   let checked = $state(true);
   let notChecked = $state(false);
@@ -64,6 +64,9 @@
   $inspect(complexGroupValue);
 </script>
 
+<svelte:head>
+  <title>组件列表 - 单选框</title>
+</svelte:head>
 <Card caption="单选框">
   <p class="p-4 pt-0">点击单选框时切换，其值只能是布尔值。</p>
   <Flex class="gp-4">
@@ -97,8 +100,28 @@
   <RadioGroup clearable={false} bind:value={groupValue2} {options} />
 </Card>
 
+<Card caption="单选框组 - 垂直布局">
+  <p class="p-4 pt-0">设置 vertical 调整为垂直布局。</p>
+  <RadioGroup clearable={false} vertical bind:value={groupValue2} {options} />
+</Card>
+
 <Card caption="单选框组 - 禁用">
   <RadioGroup clearable disabled bind:value={groupValue3} {options} />
+</Card>
+
+<Card caption="单选框组 - 单个选项禁用">
+  <RadioGroup
+    clearable
+    bind:value={groupValue3}
+    options={[
+      ...options,
+      {
+        label: "禁用",
+        value: "禁用",
+        disabled: true,
+      },
+    ]}
+  />
 </Card>
 
 <Card caption="单选框组 - 复杂值">

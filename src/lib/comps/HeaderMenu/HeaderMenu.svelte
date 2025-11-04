@@ -1,36 +1,10 @@
 <script lang="ts">
   import RightDrawer from "$lib/comps/RightDrawer.svelte";
-  import SvgMore from "./Svg/SvgMore.svelte";
+  import SvgMore from "../Svg/SvgMore.svelte";
+  import ThemeIcon from "./ThemeIcon.svelte";
+  import { routes } from "./routes";
   import type { Snippet } from "svelte";
   import { twMerge } from "tailwind-merge";
-
-  let routes = [
-    {
-      href: "/navigation",
-      text: "网址导航",
-    },
-
-    {
-      href: "/blogs",
-      text: "博客列表",
-    },
-    {
-      href: "/test",
-      text: "测试页",
-    },
-    {
-      href: "/compList",
-      text: "组件列表",
-    },
-    {
-      href: "/render",
-      text: "渲染器",
-    },
-    {
-      href: "/temp",
-      text: "临时",
-    },
-  ];
 
   let menuVisible = $state(false);
 
@@ -93,6 +67,7 @@
           ])}>{text}</a
         >
       {/each}
+      <ThemeIcon />
     </div>
   </div>
 </section>

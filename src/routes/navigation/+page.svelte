@@ -1,7 +1,7 @@
 <script lang="ts">
   import AnimatePing from "$lib/comps/AnimatePing.svelte";
   import ContextMenu, { type IContextMenuPosition } from "$lib/comps/ContextMenu.svelte";
-  import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
+  import HeaderMenu from "$lib/comps/HeaderMenu/HeaderMenu.svelte";
   import Layout from "$lib/comps/Layout.svelte";
   import Main from "$lib/comps/Main.svelte";
   import SvgDelete from "$lib/comps/Svg/SvgDelete.svelte";

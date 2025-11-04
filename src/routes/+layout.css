@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @font-face {
   font-family: "monoton";
@@ -7,6 +8,7 @@
 }
 
 @theme {
+  --container-xs: 24rem;
   --container-sm: 40rem;
   --container-md: 48rem;
   --container-lg: 64rem;

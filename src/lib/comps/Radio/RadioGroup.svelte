@@ -6,6 +6,7 @@
   interface IOption<T> {
     label: string;
     value: T;
+    disabled?: boolean;
   }
 
   interface IProps<T> {
@@ -14,6 +15,7 @@
     class?: ClassNameValue;
     options: IOption<T>[];
     value: T | null;
+    vertical?: boolean;
   }
 
   let {
@@ -22,6 +24,7 @@
     class: className,
     value = $bindable<T>(),
     options,
+    vertical = false,
   }: IProps<T> = $props();
 
   function handleChange(newValue: boolean, index: number) {
@@ -38,14 +41,14 @@
   }
 </script>
 
-<Flex class={twMerge("gap-4", className)}>
+<Flex class={twMerge("gap-4 flex-wrap", vertical && "flex-col items-start gap-2", className)}>
   {#each options as option, index}
     <Radio
       label={option.label}
       value={isEqual(value, option.value)}
       preventDefault
       onchange={(e) => handleChange(e, index)}
-      {disabled}
+      disabled={disabled || option.disabled}
     />
   {/each}
 </Flex>

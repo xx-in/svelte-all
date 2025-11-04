@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/state";
-  import HeaderMenu from "$lib/comps/HeaderMenu.svelte";
+  import HeaderMenu from "$lib/comps/HeaderMenu/HeaderMenu.svelte";
   import Layout from "$lib/comps/Layout.svelte";
   import Main from "$lib/comps/Main.svelte";
 

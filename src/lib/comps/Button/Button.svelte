@@ -9,7 +9,7 @@
   }
 
   const baseClass = twMerge(
-    "cursor-pointer py-2 px-4 rounded-lg outline-none ",
+    "cursor-pointer py-2 px-4 rounded-md outline-none ",
     "enabled:cursor-pointer",
     "disabled:cursor-not-allowed",
     "transition border border-transparent",
