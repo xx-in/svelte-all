@@ -69,20 +69,20 @@
 </svelte:head>
 <Card caption="单选框">
   <p class="p-4 pt-0">点击单选框时切换，其值只能是布尔值。</p>
-  <Flex class="gp-4">
-    <Radio bind:value={checked} class="px-4" label="带标签选中" />
-    <Radio bind:value={checked} class="px-4" />
-    <Radio bind:value={notChecked} class="px-4" label="带标签未选中" />
-    <Radio bind:value={notChecked} class="px-4" />
+  <Flex class="gp-4 flex-wrap">
+    <Radio bind:value={checked} label="带标签选中" />
+    <Radio bind:value={checked} />
+    <Radio bind:value={notChecked} label="带标签未选中" />
+    <Radio bind:value={notChecked} />
   </Flex>
 </Card>
 
 <Card caption="单选框 - 禁用">
-  <Flex class="gp-4">
-    <Radio value={true} class="px-4" label="带标签选中" disabled />
-    <Radio value={true} disabled class="px-4" />
-    <Radio value={false} class="px-4" label="带标签未选中" disabled />
-    <Radio value={false} disabled class="px-4" />
+  <Flex class="gp-4 flex-wrap">
+    <Radio value={true} label="带标签选中" disabled />
+    <Radio value={true} disabled />
+    <Radio value={false} label="带标签未选中" disabled />
+    <Radio value={false} disabled />
   </Flex>
 </Card>
 
