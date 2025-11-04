@@ -15,7 +15,7 @@
     { title: "按钮 Button ✅", href: "/compList/button" },
     { title: "单选框 Radio ✅", href: "/compList/radio" },
     { title: "文字链接 Link ✅", href: "/compList/link" },
-    { title: "多选框 Checkbox", href: "/compList/checkbox" },
+    { title: "复选框 Checkbox ✅", href: "/compList/checkbox" },
     { title: "输入框 Input" },
     { title: "数字输入框 InputNumber" },
     { title: "选择器 Select" },

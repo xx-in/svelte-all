@@ -32,6 +32,9 @@
   let value = $state([]);
 </script>
 
+<svelte:head>
+  <title>组件列表 - 复选框</title>
+</svelte:head>
 <Card caption="复选框">
   <Checkbox bind:value={checkValue} label="复选框标签" />
 </Card>
@@ -84,4 +87,8 @@
     ]}
     bind:value={complexValue}
   />
+</Card>
+
+<Card caption="复选框组 - 限制选择数量">
+  <CheckboxGroup {options} bind:value max={1} />
 </Card>

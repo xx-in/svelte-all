@@ -14,6 +14,7 @@
     options: IOption<T>[];
     value: Array<T>;
     vertical?: boolean;
+    max?: number;
     onchange?: (p: T[]) => void;
   }
 
@@ -24,6 +25,7 @@
     options,
     vertical = false,
     onchange,
+    max = Infinity,
   }: IProps<T> = $props();
 
   function handleChange(newValue: T, optionDisabled?: boolean) {
@@ -32,6 +34,10 @@
     if (existIndex != -1) {
       value.splice(existIndex, 1);
     } else {
+      // 达到最大选择数量
+      if (value.length >= max) {
+        return;
+      }
       value.push(newValue);
     }
     onchange?.(value);
@@ -48,7 +54,7 @@
 
 <Flex
   class={twMerge(
-    "gap-4 flex-wrap select-none",
+    "gap-4 flex-wrap select-none ",
     vertical && "flex-col items-start gap-2",
     className,
   )}
@@ -56,7 +62,7 @@
   {#each options as option}
     <div
       class={twMerge(
-        "flex items-center gap-2 px-4 py-2 cursor-pointer",
+        "flex items-center gap-2 px-4 py-2 cursor-pointer group",
         (disabled || option.disabled) && "cursor-not-allowed",
       )}
       onclick={() => handleChange(option.value, option.disabled)}
@@ -86,17 +92,30 @@
             />
           </svg>
         </div>
+        <span
+          class={twMerge(
+            "text-blue-500",
+            (disabled || option.disabled) && "text-stone-300 dark:text-stone-600",
+          )}>{option.label}</span
+        >
       {:else}
         <div
           class={twMerge(
-            "size-4 border rounded-sm border-stone-300",
-            (disabled || option.disabled) && "border-stone-300 dark:border-stone-600",
+            "size-4 border rounded-sm border-stone-300 duration-200",
+            disabled || option.disabled
+              ? "border-stone-300 dark:border-stone-600"
+              : "group-hover:border-blue-500",
           )}
         ></div>
+        <span
+          class={twMerge(
+            "duration-200",
+            disabled || option.disabled
+              ? "text-stone-300 dark:text-stone-600"
+              : "group-hover:text-blue-500",
+          )}>{option.label}</span
+        >
       {/if}
-      <span class={twMerge((disabled || option.disabled) && "text-stone-300 dark:text-stone-600")}
-        >{option.label}</span
-      >
     </div>
   {/each}
 </Flex>

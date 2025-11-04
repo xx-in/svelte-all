@@ -53,7 +53,7 @@
     </div>
 
     {#if label}
-      <div class="text-stone-400 dark:text-stone-500 text-sm font-normal">
+      <div class="text-stone-400 dark:text-stone-500 font-normal">
         {label}
       </div>
     {/if}
@@ -62,17 +62,16 @@
   {#if !disabled}
     <div
       class={twMerge(
-        "relative size-4 flex items-center justify-center rounded-full border-1 transition-all duration-300",
+        "relative size-4 flex items-center justify-center rounded-full border-1 transition-all",
         "border-stone-200 dark:border-stone-700 group-hover:border-blue-500",
-
         value && activeClass,
-        !disabled && "group-hover:border-blue-500",
+        "group-hover:border-blue-500 duration-200",
       )}
     >
       <!-- 动态小圆点 -->
       <div
         class={twMerge(
-          "absolute transition-all duration-300 rounded-full",
+          "absolute transition-all duration-200 rounded-full",
           value
             ? "size-1.5 bg-white dark:bg-stone-200 opacity-100 scale-100"
             : "size-1 bg-transparent opacity-0 scale-0",
@@ -83,7 +82,7 @@
     {#if label}
       <div
         class={twMerge(
-          "text-sm font-medium transition-colors duration-300 select-none",
+          "text font-medium transition-all duration-200 select-none",
           "text-stone-700 dark:text-stone-300",
           "group-hover:text-blue-500",
           value && "text-blue-500 dark:text-blue-500",

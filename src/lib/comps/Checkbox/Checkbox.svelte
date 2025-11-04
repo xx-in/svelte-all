@@ -21,7 +21,7 @@
 
 <div
   class={twMerge(
-    "flex items-center gap-2 px-4 py-2 cursor-pointer select-none",
+    "flex items-center gap-2 px-4 py-2 cursor-pointer select-none group ",
     disabled && "cursor-not-allowed",
     className,
   )}
@@ -31,7 +31,7 @@
     <div
       class={twMerge(
         "size-4 border rounded-sm flex items-center justify-center",
-        "border-blue-500 bg-blue-500",
+        "border-blue-500 bg-blue-500 duration-200",
         disabled && "bg-transparent border-stone-300 dark:border-stone-600",
       )}
     >
@@ -48,13 +48,21 @@
         />
       </svg>
     </div>
+    <span class={twMerge("text-blue-500", disabled && "text-stone-300 dark:text-stone-600")}
+      >{label}</span
+    >
   {:else}
     <div
       class={twMerge(
-        "size-4 border rounded-sm border-stone-300",
-        disabled && "border-stone-300 dark:border-stone-600",
+        "size-4 border rounded-sm border-stone-300 duration-200",
+        disabled ? "border-stone-300 dark:border-stone-600" : "group-hover:border-blue-500",
       )}
     ></div>
+    <span
+      class={twMerge(
+        "duration-200",
+        disabled ? "text-stone-300 dark:text-stone-600" : "group-hover:text-blue-500",
+      )}>{label}</span
+    >
   {/if}
-  <span class={twMerge(disabled && "text-stone-300 dark:text-stone-600")}>{label}</span>
 </div>
