@@ -17,7 +17,7 @@
 
 <div class={twMerge(baseClass, className)}>
   {#if caption}
-    <div class="border-b border-stone-200 pb-2 mb-4 text-lg font-bold dark:border-gray-800">
+    <div class="border-b border-stone-200 pb-3 mb-4 text-xl font-bold dark:border-gray-800">
       {caption}
     </div>
   {/if}
