@@ -45,7 +45,7 @@
     {#snippet right()}
       <div
         class="h-10 flex items-center px-6
-       border-stone-200 bg-stone-100 dark:bg-stone-800"
+       border-stone-200 bg-stone-100 dark:bg-stone-900"
       >
         px
       </div>
