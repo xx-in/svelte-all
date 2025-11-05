@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import RightDrawer from "$lib/comps/RightDrawer.svelte";
   import SvgMore from "../Svg/SvgMore.svelte";
   import ThemeIcon from "./ThemeIcon.svelte";
@@ -23,6 +24,10 @@
   }
 
   let { activeRoute = "/", class: className, children }: IProps = $props();
+
+  function isActive(href: string) {
+    return page.url.pathname.startsWith(href);
+  }
 </script>
 
 <section class={twMerge("h-12 shadow-sm flex flex-col justify-center px-3", className)}>
@@ -45,8 +50,8 @@
           <a
             {href}
             class={twMerge([
-              "p-2 text-left text-sm hover:text-sky-500",
-              activeRoute == href && "text-sky-500",
+              "p-2 text-left text-sm hover:text-blue-500",
+              activeRoute == href && "text-blue-500",
             ])}>{text}</a
           >
         {/each}
@@ -62,8 +67,8 @@
         <a
           {href}
           class={twMerge([
-            "hover:text-sky-500",
-            activeRoute.startsWith(href) && "text-sky-500 underline underline-offset-18",
+            "hover:text-blue-500",
+            isActive(href) && "text-blue-500 underline underline-offset-18",
           ])}>{text}</a
         >
       {/each}

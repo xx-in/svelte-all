@@ -12,11 +12,11 @@
   let { children }: IProps = $props();
 
   let tabList = $state([
-    { title: "按钮 Button ✅", href: "/compList/button" },
-    { title: "单选框 Radio ✅", href: "/compList/radio" },
-    { title: "文字链接 Link ✅", href: "/compList/link" },
-    { title: "复选框 Checkbox ✅", href: "/compList/checkbox" },
-    { title: "输入框 Input" },
+    { title: "按钮 Button ✓", href: "/compList/button" },
+    { title: "单选框 Radio ✓", href: "/compList/radio" },
+    { title: "文字链接 Link ✓", href: "/compList/link" },
+    { title: "复选框 Checkbox ✓", href: "/compList/checkbox" },
+    { title: "输入框 Input ✓", href: "/compList/input" },
     { title: "数字输入框 InputNumber" },
     { title: "选择器 Select" },
     { title: "级联选择器 Cascader" },
@@ -71,8 +71,8 @@
         {#each tabList as tab}
           <a
             class={twMerge(
-              "text-left p-1 hover:text-sky-500 cursor-pointer",
-              activeRoute == tab.href && "text-sky-500 underline underline-offset-4",
+              "text-left p-1 hover:text-blue-500 cursor-pointer",
+              activeRoute == tab.href && "text-blue-500 underline underline-offset-4",
             )}
             href={tab.href}>{tab.title}</a
           >

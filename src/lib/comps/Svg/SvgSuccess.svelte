@@ -8,7 +8,7 @@
   let { class: className, onclick }: IProps = $props();
 </script>
 
-<svg class={twMerge(className)} {onclick}>
+<svg class={twMerge("size-5", className)} {onclick}>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"
     ><path
       fill="currentColor"
