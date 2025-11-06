@@ -1,6 +1,7 @@
 import { pinyin } from "pinyin";
 
 export * from "./clipboard";
+export * from "./dom";
 
 /**
  * 同 Object.keys 但是类型更安全
@@ -38,4 +39,14 @@ export function toPinyin(text: string) {
     .flat()
     .join("");
   return result;
+}
+
+/**
+ * 判断字面量是否相等
+ * @param a
+ * @param b
+ * @returns
+ */
+export function isEqual(a: any, b: any) {
+  return JSON.stringify(a) == JSON.stringify(b);
 }

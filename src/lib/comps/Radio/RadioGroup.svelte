@@ -1,5 +1,6 @@
 <script lang="ts" generics="T">
   import Flex from "$lib/comps/Flex/Flex.svelte";
+  import { isEqual } from "$lib/utils";
   import Radio from "./Radio.svelte";
   import { twMerge, type ClassNameValue } from "tailwind-merge";
 
@@ -34,10 +35,6 @@
     } else {
       value = selectOption.value;
     }
-  }
-
-  function isEqual(a: any, b: any) {
-    return JSON.stringify(a) == JSON.stringify(b);
   }
 </script>
 

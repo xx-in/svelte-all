@@ -6,11 +6,12 @@
     children?: Snippet;
     class?: ClassNameValue;
     onclick?: () => void;
+    vertical?: boolean;
   }
 
-  let { children, class: className, onclick }: IProps = $props();
+  let { children, vertical = false, class: className, onclick }: IProps = $props();
 
-  const baseClass = twMerge(["@container flex items-center"]);
+  const baseClass = twMerge(["@container flex ", vertical ? "flex-col" : "items-center"]);
 </script>
 
 <div class={twMerge(baseClass, className)} {onclick}>

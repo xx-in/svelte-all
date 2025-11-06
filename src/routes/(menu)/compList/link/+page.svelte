@@ -10,7 +10,7 @@
 <div>
   <Card caption="文字链接">
     <p class="mb-4">文字链接也可以设置 href 属性，本质就是 a 标签</p>
-    <Flex class="flex-col gap-4 items-stretch">
+    <Flex vertical class="gap-4 items-stretch">
       <Flex class="gap-4">
         <Link href="/">默认链接</Link>
         <Link disabled>默认链接</Link>
@@ -43,7 +43,7 @@
     </Flex>
   </Card>
 
-  <Card caption="文字链接">
+  <Card caption="文字链接 - 禁用">
     <p class="mb-4">即使设置了href，但通过disabled属性可以阻止跳转。</p>
     <Flex class="gap-4">
       <Link href="/" disabled>禁用链接跳转</Link>

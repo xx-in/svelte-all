@@ -21,6 +21,7 @@
     "ajv-i18n": "^4.2.0",
     "animate.css": "^4.1.1",
     "cheerio": "^1.1.2",
+    "decimal.js": "^10.6.0",
     "docx": "^9.5.1",
     "katex": "^0.16.25",
     "markdown-it": "^14.1.0",
