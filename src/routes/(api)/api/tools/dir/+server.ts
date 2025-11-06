@@ -8,16 +8,24 @@ async function readDir(dirPath: string) {
   return files;
 }
 
-/**
- * 获取指定目录下的文件列表
- * @param param0
- * @returns
- */
 export const GET: RequestHandler = async ({ request }) => {
   const url = new URL(request.url);
   const search = new URLSearchParams(url.search);
   const path = search.get("path")!;
   const dirPath = dev ? join("./static", path) : join("./build/client", path);
   const files = await readDir(dirPath);
-  return json(files.filter((name) => name.endsWith(".md")).sort());
+
+  // 过滤出 .md 或 .k.md 文件
+  const mdFiles = files.filter((name) => name.endsWith(".md"));
+
+  // 自定义排序：先普通 .md，再 .k.md，内部按字母排序
+  mdFiles.sort((a, b) => {
+    const aIsK = a.endsWith(".k.md") ? 1 : 0;
+    const bIsK = b.endsWith(".k.md") ? 1 : 0;
+
+    if (aIsK !== bIsK) return aIsK - bIsK; // 普通 .md 在前，.k.md 在后
+    return a.localeCompare(b); // 同类按字母排序
+  });
+
+  return json(mdFiles);
 };

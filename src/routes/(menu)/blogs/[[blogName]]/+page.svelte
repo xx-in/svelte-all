@@ -1,11 +1,9 @@
 <script lang="ts">
   import DragableLayout from "$lib/comps/DragableLayout.svelte";
-  import HeaderMenu from "$lib/comps/HeaderMenu/HeaderMenu.svelte";
   import Layout from "$lib/comps/Layout.svelte";
-  import Main from "$lib/comps/Main.svelte";
   import Markdown from "$lib/comps/Markdown/Markdown.svelte";
+  import MarkdownK from "$lib/comps/Markdown/MarkdownK.svelte";
   import SvgLoading from "$lib/comps/Svg/SvgLoading.svelte";
-  import { delay } from "$lib/utils";
   import type { PageProps } from "./$types";
   import { twMerge } from "tailwind-merge";
 
@@ -45,6 +43,10 @@
   }
 
   let mdContainer = $state<HTMLDivElement>();
+
+  function toName(text: string) {
+    return text.split(".")[0];
+  }
 </script>
 
 <svelte:head>
@@ -59,7 +61,7 @@
         class={twMerge("mb-4 cursor-pointer rounded-2xl border border-gray-200 py-2 pl-8 shadow")}
       >
         <a class="font-bold" href={"/blogs/mobie/" + blog}>
-          {index + 1}. {blog}
+          {index + 1}. {toName(blog)}
         </a>
       </li>
     {/each}
@@ -83,7 +85,7 @@
             >
               <a href={"/blogs/" + blog}>
                 <span class="">
-                  {index + 1}. {blog}
+                  {index + 1}. {toName(blog)}
                 </span>
               </a>
             </li>
@@ -100,7 +102,11 @@
             </div>
           {:else}
             <div class="pb-10">
-              <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
+              {#if selectBlog.endsWith(".k.md")}
+                <MarkdownK raw={selectBlogContent} class="max-w-full" />
+              {:else}
+                <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
+              {/if}
             </div>
           {/if}
         </Layout>
