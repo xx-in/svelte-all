@@ -9,13 +9,13 @@
   function typeClasses(type: string) {
     switch (type) {
       case "success":
-        return "bg-white/90 text-green-600 bg-green-50";
+        return "bg-stone-50/90 text-green-600 bg-green-50";
       case "error":
-        return "bg-white/90 text-red-600 bg-red-50";
+        return "bg-stone-50/90 text-red-600 bg-red-50";
       case "warning":
-        return "bg-white/90 text-orange-600 bg-orange-50";
+        return "bg-stone-50/90 text-orange-600 bg-orange-50";
       default:
-        return "bg-white/90 text-stone-600 bg-stone-50"; // info
+        return "bg-stone-50/90 text-stone-600 bg-stone-50"; // info
     }
   }
 </script>
@@ -23,7 +23,7 @@
 <div class="fixed top-16 right-6 z-50 pointer-events-none overflow-hidden">
   {#each toastList as { type, message, id } (id)}
     <div
-      class="pointer-events-auto rounded-xl shadow-sm border border-stone-50 transform transition-all duration-300 ease-out overflow-hidden flex justify-end items-center my-2 bg-white/90"
+      class="pointer-events-auto rounded-xl shadow-sm border border-stone-50 transform transition-all duration-300 ease-out overflow-hidden flex justify-end items-center my-2 bg-stone-50/90"
       in:scale={{ duration: 500 }}
       out:fly={{ x: 200 }}
     >

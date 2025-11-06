@@ -37,7 +37,7 @@
   >
     <div
       class={twMerge(
-        "flex flex-col max-w-4/5 mx-auto mt-20 rounded-xl max-h-6/7 bg-white overflow-hidden dark:bg-gray-800 dark:text-white gap-6 w-auto",
+        "flex flex-col max-w-4/5 mx-auto mt-20 rounded-xl max-h-6/7 bg-stone-50 overflow-hidden dark:bg-gray-800 dark:text-stone-50 gap-6 w-auto",
         className,
       )}
     >

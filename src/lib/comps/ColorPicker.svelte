@@ -244,7 +244,7 @@
     "bg-zinc-950",
     "bg-neutral-950",
     "bg-stone-950",
-    "bg-white",
+    "bg-stone-50",
     "bg-black",
     "bg-transparent",
   ]);
@@ -283,7 +283,7 @@
 
   {#if visible}
     <section
-      class="absolute left-0 bottom-0 inline-grid w-113 origin-top-left scale-50 grid-cols-22 gap-1 rounded-xl border border-gray-200 bg-white p-2 shadow sm:scale-100"
+      class="absolute left-0 bottom-0 inline-grid w-113 origin-top-left scale-50 grid-cols-22 gap-1 rounded-xl border border-gray-200 bg-stone-50 p-2 shadow sm:scale-100"
     >
       {#each colors as color}
         <div

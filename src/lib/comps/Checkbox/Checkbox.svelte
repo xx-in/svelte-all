@@ -38,7 +38,7 @@
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1024 1024"
-        class={twMerge("size-3 text-white ", disabled && " text-stone-300 dark:text-stone-600")}
+        class={twMerge("size-3 text-stone-50 ", disabled && " text-stone-300 dark:text-stone-600")}
       >
         <path
           fill="currentColor"

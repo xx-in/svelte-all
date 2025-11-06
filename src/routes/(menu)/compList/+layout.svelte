@@ -18,7 +18,7 @@
     { title: "复选框 Checkbox ✓", href: "/compList/checkbox" },
     { title: "输入框 Input ✓", href: "/compList/input" },
     { title: "数字输入框 InputNumber ✓", href: "/compList/inputNumber" },
-    { title: "选择器 Select", href: "/compList/select" },
+    { title: "选择器 Select ✓", href: "/compList/select" },
     { title: "级联选择器 Cascader" },
     { title: "开关 Switch" },
     { title: "滑块 Slider" },

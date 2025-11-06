@@ -55,7 +55,7 @@
   }
 
   const controlClass =
-    twMerge(`px-4 py-0 flex bg-stone-100 hover:bg-blue-500 hover:text-white items-center select-none dark:bg-stone-700
+    twMerge(`px-4 py-0 flex bg-stone-100 hover:bg-blue-500 hover:text-stone-50 items-center select-none dark:bg-stone-700
   `);
 </script>
 
@@ -63,7 +63,7 @@
   bind:value={() => value, handleInput}
   {...rest}
   {disabled}
-  inputClass="text-center"
+  inputClass={twMerge(disabled ? "pl-4" : "text-center")}
   type="number"
 >
   {#snippet left()}

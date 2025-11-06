@@ -94,7 +94,7 @@
   <title>数独九宫格</title>
 </svelte:head>
 <h1 class="my-10 text-center text-2xl font-bold">简单难度数独九宫格</h1>
-<div class="flex w-screen justify-center text-white">
+<div class="flex w-screen justify-center text-stone-50">
   <div class=" inline-grid grid-cols-9 justify-start gap-2">
     {#each list as row, row_index}
       {#each row as col, col_index}
@@ -111,7 +111,7 @@
     {/each}
   </div>
 </div>
-<div class="mt-10 flex items-center justify-center gap-4 text-white">
+<div class="mt-10 flex items-center justify-center gap-4 text-stone-50">
   <button onclick={handleReset} class="cursor-pointer rounded-xl bg-red-500 px-4 py-2">清空</button>
 
   {#if isDone}

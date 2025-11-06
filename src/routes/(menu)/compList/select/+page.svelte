@@ -1,6 +1,9 @@
 <script lang="ts">
   import Card from "$lib/comps/Card/Card.svelte";
   import Flex from "$lib/comps/Flex/Flex.svelte";
+  import Input from "$lib/comps/Input/Input.svelte";
+  import InputNumber from "$lib/comps/Input/InputNumber.svelte";
+  import SvgArrow from "$lib/comps/Svg/SvgArrow.svelte";
   import Select from "./Select.svelte";
 
   let value = $state("选项5");
@@ -55,5 +58,36 @@
 <Card caption="下拉选择器 - 长列表滚动">
   <Flex vertical class="gap-4">
     <Select options={longOptions} bind:value={value1} />
+  </Flex>
+</Card>
+
+<Card caption="下拉选择器 - 可以清空">
+  <Flex vertical class="gap-4">
+    <Select options={longOptions} bind:value={value1} clearable />
+  </Flex>
+</Card>
+
+<Card caption="下拉选择器 - 禁用">
+  <Flex vertical class="gap-4">
+    <Select options={longOptions} bind:value={value1} disabled />
+
+    <Input value="文本框" disabled />
+    <InputNumber value={1} disabled />
+  </Flex>
+</Card>
+
+<Card caption="下拉选择器 - 选项禁用">
+  <Flex vertical class="gap-4">
+    <Select
+      options={[
+        {
+          label: "禁用",
+          value: "禁用",
+          disabled: true,
+        },
+        ...options,
+      ]}
+      bind:value
+    />
   </Flex>
 </Card>

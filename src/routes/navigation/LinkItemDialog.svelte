@@ -135,21 +135,21 @@
   </DialogContent>
   <DialogFooter>
     <button
-      class="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-white shadow hover:bg-gray-600"
+      class="cursor-pointer rounded-lg bg-gray-500 px-4 py-2 text-stone-50 shadow hover:bg-gray-600"
       onclick={() => (visible = false)}
     >
       取消
     </button>
     {#if isEdit}
       <button
-        class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
+        class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-stone-50 shadow hover:bg-blue-600"
         onclick={handleEdit}
       >
         确定
       </button>
     {:else}
       <button
-        class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600"
+        class="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-stone-50 shadow hover:bg-blue-600"
         onclick={handleAppend}
       >
         确定

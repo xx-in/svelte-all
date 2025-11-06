@@ -31,7 +31,7 @@
       category: activeCategory ? activeCategory : "编程",
       icon: "",
       title: "",
-      bgColor: "bg-white",
+      bgColor: "bg-stone-50",
     };
     visible = true;
   }
@@ -80,7 +80,7 @@
     category: "编程",
     icon: "",
     title: "",
-    bgColor: "bg-white",
+    bgColor: "bg-stone-50",
   });
 
   /**
@@ -212,9 +212,9 @@
   muted
   loop
 ></video>
-<Layout class="z-20 dark:bg-black/10 text-white">
+<Layout class="z-20 dark:bg-black/10 text-stone-50">
   {#snippet top()}
-    <HeaderMenu activeRoute="/navigation" class="z-40 bg-white/5 sm:py-0">
+    <HeaderMenu activeRoute="/navigation" class="z-40 bg-stone-50/5 sm:py-0">
       <SearchBar bind:value={filterName} />
     </HeaderMenu>
   {/snippet}
@@ -244,7 +244,7 @@
               {:else}
                 <div
                   class={twMerge(
-                    "flex size-full items-center justify-center rounded-md text-white",
+                    "flex size-full items-center justify-center rounded-md text-stone-50",
                     linkItem.bgColor,
                   )}
                 >
@@ -254,7 +254,7 @@
             </AnimatePing>
 
             <div
-              class="relative left-0 z-20 w-4/5 truncate text-center text-white"
+              class="relative left-0 z-20 w-4/5 truncate text-center text-stone-50"
               title={linkItem.title}
             >
               <span class="z-20 text-sm">
@@ -276,7 +276,7 @@
             </div>
           </AnimatePing>
 
-          <div class="relative z-20 w-full truncate px-4 text-center text-white">
+          <div class="relative z-20 w-full truncate px-4 text-center text-stone-50">
             <span class="z-20 text-sm">新增导航</span>
           </div>
         </div>
@@ -285,7 +285,7 @@
   </Layout>
 
   {#snippet bottom()}
-    <div class="px-4 pt-1 pb-4 text-white">
+    <div class="px-4 pt-1 pb-4 text-stone-50">
       <div class="flex gap-4 pb-3 sm:pb-0 w-full overflow-auto justify-center">
         {#each typedKeys(categoryObject) as category}
           <div
@@ -312,7 +312,7 @@
   <div class="inset-shadow-lg flex flex-col gap-2 p-1 text-sm select-none">
     {#each contextMenuList as item}
       <div
-        class="flex w-40 cursor-pointer items-center gap-2 rounded-sm px-2 py-1 hover:bg-sky-500 hover:text-white"
+        class="flex w-40 cursor-pointer items-center gap-2 rounded-sm px-2 py-1 hover:bg-sky-500 hover:text-stone-50"
         onclick={item.onclick}
       >
         <item.Icon class="size-6" />

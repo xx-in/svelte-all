@@ -90,7 +90,7 @@ export const exampleData: IRenderArray = [
         id: nanoid(),
         value: "",
         params: {
-          class: "py-1 px-4 border bg-blue-500 text-white rounded-md",
+          class: "py-1 px-4 border bg-blue-500 text-stone-50 rounded-md",
         },
         events: {
           onclick: "()=>{alert('124')}",

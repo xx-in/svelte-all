@@ -37,7 +37,7 @@
 
 {#if visible}
   <div
-    class="content fixed z-50 rounded-md border border-gray-300 bg-white dark:border-gray-900 dark:bg-black"
+    class="content fixed z-50 rounded-md border border-gray-300 bg-stone-50 dark:border-gray-900 dark:bg-black"
     style={positionStyle}
   >
     {@render children?.()}

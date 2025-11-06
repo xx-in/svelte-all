@@ -73,7 +73,7 @@
         class={twMerge(
           "absolute transition-all duration-200 rounded-full",
           value
-            ? "size-1.5 bg-white dark:bg-stone-200 opacity-100 scale-100"
+            ? "size-1.5 bg-stone-50 dark:bg-stone-200 opacity-100 scale-100"
             : "size-1 bg-transparent opacity-0 scale-0",
         )}
       ></div>
