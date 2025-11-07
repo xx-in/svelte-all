@@ -66,7 +66,7 @@
 
 <DragableLayout>
   {#snippet left()}
-    <Layout class="p-4 pr-0 ">
+    <Layout class="p-4 pr-0 bg-stone-100 dark:bg-stone-900">
       <div class="flex flex-col gap-2 px-4">
         {#each tabList as tab}
           <a
@@ -80,7 +80,7 @@
       </div>
     </Layout>
   {/snippet}
-  <Layout class="p-4 pr-0 rounded-lg @container">
+  <Layout class="p-4 pr-0 rounded-lg @container dark:bg-stone-950">
     <section class="pr-4 @container">{@render children()}</section>
   </Layout>
 </DragableLayout>

@@ -7,5 +7,5 @@
 export function isDomInBottom(e: HTMLElement) {
   const rect = e.getBoundingClientRect();
   const { top } = rect;
-  return top * 2 > window.innerHeight;
+  return top * 2 > globalThis.innerHeight;
 }

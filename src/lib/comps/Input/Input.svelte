@@ -29,7 +29,7 @@
     !left && "pl-4",
     !right && "pr-4",
     disabled
-      ? "bg-gray-100 text-stone-300 border-stone-200 cursor-not-allowed dark:bg-stone-900 dark:text-stone-600 dark:border-stone-800"
+      ? "bg-gray-100 text-stone-400 border-stone-200 cursor-not-allowed dark:bg-stone-900 dark:text-stone-600 dark:border-stone-800"
       : "bg-stone-50 text-stone-500 border-stone-300 cursor-pointer dark:bg-stone-800 dark:text-stone-100 dark:border-stone-600 has-[input:focus]:border-blue-500",
     className,
   )}
@@ -44,7 +44,7 @@
     {...rest}
     bind:value
     class={twMerge(
-      "flex-1 min-w-0 outline-none bg-transparent placeholder-stone-300 dark:placeholder-stone-600 disabled:cursor-not-allowed py-2",
+      "flex-1 min-w-0 outline-none bg-transparent placeholder-stone-400 dark:placeholder-stone-600 disabled:cursor-not-allowed py-2",
       inputClass,
     )}
     {disabled}

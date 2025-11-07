@@ -50,12 +50,12 @@
 
     // 支持直接访问网址
     if (/^https?:\/\//.test(query)) {
-      window.open(query);
+      globalThis.open(query);
       return;
     }
 
     const target = engine.handler(query);
-    window.open(target, "_blank");
+    globalThis.open(target, "_blank");
   }
 
   function handleKey(e: KeyboardEvent) {

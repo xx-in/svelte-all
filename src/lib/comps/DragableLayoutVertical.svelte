@@ -31,8 +31,8 @@
     draggingTop = true;
     topStartY = e.clientY;
     topStartHeight = topHeight;
-    window.addEventListener("pointermove", onTopPointerMove);
-    window.addEventListener("pointerup", onTopPointerUp);
+    globalThis.addEventListener("pointermove", onTopPointerMove);
+    globalThis.addEventListener("pointerup", onTopPointerUp);
     e.preventDefault();
   };
 
@@ -44,16 +44,16 @@
 
   const onTopPointerUp = () => {
     draggingTop = false;
-    window.removeEventListener("pointermove", onTopPointerMove);
-    window.removeEventListener("pointerup", onTopPointerUp);
+    globalThis.removeEventListener("pointermove", onTopPointerMove);
+    globalThis.removeEventListener("pointerup", onTopPointerUp);
   };
 
   const onBottomPointerDown = (e: PointerEvent) => {
     draggingBottom = true;
     bottomStartY = e.clientY;
     bottomStartHeight = bottomHeight;
-    window.addEventListener("pointermove", onBottomPointerMove);
-    window.addEventListener("pointerup", onBottomPointerUp);
+    globalThis.addEventListener("pointermove", onBottomPointerMove);
+    globalThis.addEventListener("pointerup", onBottomPointerUp);
     e.preventDefault();
   };
 
@@ -65,8 +65,8 @@
 
   const onBottomPointerUp = () => {
     draggingBottom = false;
-    window.removeEventListener("pointermove", onBottomPointerMove);
-    window.removeEventListener("pointerup", onBottomPointerUp);
+    globalThis.removeEventListener("pointermove", onBottomPointerMove);
+    globalThis.removeEventListener("pointerup", onBottomPointerUp);
   };
 
   function toPx(n: number) {

@@ -94,11 +94,11 @@
   }
 
   :global(.katex) {
-    font-size: 1em;
+    font-size: 1.02em;
     overflow-x: auto;
     overflow-y: hidden;
-    color: oklch(64.5% 0.246 16.439);
-    /* color: oklch(62.3% 0.214 259.815); */
+    color: oklch(63.7% 0.237 25.331);
+    margin: 0 0.25em;
   }
 
   @media (max-width: 640px) {

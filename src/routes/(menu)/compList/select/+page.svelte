@@ -3,8 +3,8 @@
   import Flex from "$lib/comps/Flex/Flex.svelte";
   import Input from "$lib/comps/Input/Input.svelte";
   import InputNumber from "$lib/comps/Input/InputNumber.svelte";
-  import SvgArrow from "$lib/comps/Svg/SvgArrow.svelte";
-  import Select from "./Select.svelte";
+  import Select from "$lib/comps/Select/Select.svelte";
+  import SelectMultiple from "$lib/comps/Select/SelectMultiple.svelte";
 
   let value = $state("选项5");
 
@@ -32,7 +32,6 @@
   ];
 
   let longOptions = rangeArr(20);
-  console.log(longOptions);
 
   function rangeArr(count: number) {
     const result = [];
@@ -46,6 +45,8 @@
   }
 
   let value1 = $state(null);
+
+  let valueM1 = $state([]);
 </script>
 
 <Card caption="下拉选择器">
@@ -89,5 +90,14 @@
       ]}
       bind:value
     />
+  </Flex>
+</Card>
+
+<Card caption="下拉选择器 - 多选">
+  <Flex vertical class="gap-4">
+    <SelectMultiple options={longOptions} bind:value={valueM1} />
+    <SelectMultiple options={longOptions} bind:value={valueM1} clearable />
+    <SelectMultiple options={longOptions} bind:value={valueM1} clearable disabled />
+    <SelectMultiple options={longOptions} bind:value={valueM1} clearable max={2} />
   </Flex>
 </Card>
