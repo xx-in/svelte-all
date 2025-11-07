@@ -1,5 +1,4 @@
 <script lang="ts" generics="T extends string|number">
-  import Flex from "$lib/comps/Flex/Flex.svelte";
   import type { Snippet } from "svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
   import { twMerge, type ClassNameValue } from "tailwind-merge";
