@@ -7,6 +7,6 @@ export const handle: Handle = async ({ event, resolve }) => {
   event.locals.themeMode = theme;
   return resolve(event, {
     transformPageChunk: ({ html }) =>
-      html.replace("%data-theme%", theme === "dark" ? "dark" : "light"),
+      html.replace("%data-theme%", theme === "light" ? "light" : "dark"),
   });
 };
