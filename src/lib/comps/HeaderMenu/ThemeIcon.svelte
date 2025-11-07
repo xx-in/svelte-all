@@ -6,14 +6,10 @@
    */
   function handleToggle() {
     const current = getThemeMode();
-    if (current === "light") setThemeMode("system");
+    if (current === "light") setThemeMode("dark");
     else if (current === "dark") setThemeMode("system");
     else {
-      if (dark()) {
-        setThemeMode("light");
-      } else {
-        setThemeMode("dark");
-      }
+      setThemeMode("light");
     }
   }
 
