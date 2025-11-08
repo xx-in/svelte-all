@@ -31,7 +31,7 @@
       category: activeCategory ? activeCategory : "编程",
       icon: "",
       title: "",
-      bgColor: "bg-stone-50",
+      bgColor: "",
     };
     visible = true;
   }
@@ -80,7 +80,7 @@
     category: "编程",
     icon: "",
     title: "",
-    bgColor: "bg-stone-50",
+    bgColor: "",
   });
 
   /**
