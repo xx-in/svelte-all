@@ -11,69 +11,82 @@
   import { markedHighlight } from "marked-highlight";
   import { twMerge } from "tailwind-merge";
 
+  // 样式注入
   let styleId = $state<string>("");
-
   $effect(() => {
     const styleContent = getIsDark() ? darkTheme : lightTheme;
     if (styleId) removeStyle(styleId);
     styleId = setStyle(styleContent, styleId);
   });
 
+  // 组件 props
   interface IProps {
     raw: string;
     class?: string;
   }
-
   let { raw, class: className }: IProps = $props();
 
-  // ✅ 高亮插件
-  const marked = new Marked(
+  // ✅ 初始化 Marked 高亮插件
+  const marked = new Marked();
+  marked.use(
     // @ts-ignore
     markedHighlight({
-      emptyLangClass: "hljs",
-      langPrefix: "hljs language-",
-      highlight(code, lang) {
-        const language = hljs.getLanguage(lang) ? lang : "plaintext";
-        return `<div class="max-h-[50vh] overflow-auto pt-10">
-          <copy-plugin lang="${lang}" code="${encodeURIComponent(code)}"></copy-plugin>
-          ${hljs.highlight(code, { language }).value}
-        </div>`;
+      highlight: (code, lang) => {
+        if (lang && hljs.getLanguage(lang)) {
+          return hljs.highlight(code, { language: lang }).value;
+        }
+        return hljs.highlightAuto(code).value;
       },
     }),
   );
 
+  // HTML 实体解码
   function decodeHtmlEntities(str: string) {
     const txt = document.createElement("textarea");
     txt.innerHTML = str;
     return txt.value;
   }
 
+  // ✅ 优化 KaTeX 渲染
   function renderMarkdownWithLatex(md: string) {
-    // 先处理块公式，避免 Markdown 转义破坏 \ 符号
+    // 处理块公式 $...$
     md = md.replace(/\$\$([\s\S]+?)\$\$/g, (_: any, expr: any) => {
       try {
         const code = decodeHtmlEntities(expr.trim());
-        return katex.renderToString(code, { displayMode: true, throwOnError: false });
+        // 支持所有 KaTeX 功能，包括矩阵、分数、上下标等
+        return katex.renderToString(code, {
+          displayMode: true,
+          throwOnError: false,
+          output: "html",
+          strict: "warn",
+        });
       } catch (e) {
         console.error("KaTeX 块公式渲染失败:", e);
         return `<pre>${expr}</pre>`;
       }
     });
 
-    // 再处理行内公式
+    // 处理行内公式 $...$
     md = md.replace(/(?<!\$)\$(.+?)\$(?!\$)/g, (_: any, expr: any) => {
       try {
         const code = decodeHtmlEntities(expr.trim());
-        return katex.renderToString(code, { displayMode: false, throwOnError: false });
+        return katex.renderToString(code, {
+          displayMode: false,
+          throwOnError: false,
+          output: "html",
+          strict: "warn",
+        });
       } catch (e) {
         console.error("KaTeX 行内公式渲染失败:", e);
         return `<code>${expr}</code>`;
       }
     });
 
+    // 解析 Markdown 内容
     return marked.parse(md) as string;
   }
 
+  // 响应式 HTML
   let html = $derived(renderMarkdownWithLatex(raw));
 </script>
 
@@ -99,6 +112,10 @@
     overflow-y: hidden;
     color: oklch(63.7% 0.237 25.331);
     margin: 0 0.25em;
+  }
+
+  :global(.katex .katex-mathml) {
+    display: none; /* 隐藏 MathML 输出，保留 HTML 输出 */
   }
 
   @media (max-width: 640px) {
