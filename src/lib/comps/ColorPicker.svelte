@@ -245,6 +245,7 @@
     "bg-neutral-950",
     "bg-stone-950",
     "bg-stone-50",
+    "bg-white",
     "bg-black",
     "bg-transparent",
   ]);

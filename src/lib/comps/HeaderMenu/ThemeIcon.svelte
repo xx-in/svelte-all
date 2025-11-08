@@ -24,7 +24,7 @@
 <div class="size-5 pt-0.5 ml-2 cursor-pointer" onclick={handleToggle} title={mode()}>
   {#if mode() === "system"}
     <!-- 跟随系统图标 -->
-    <svg class="text-yellow-500 dark:text-orange-500/60 size-5">
+    <svg class="text-yellow-500/50 dark:text-orange-500/60 size-5">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
         ><path
           fill="currentColor"
