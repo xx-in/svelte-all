@@ -6,6 +6,7 @@
     class?: string;
     children: Snippet;
   }
+
   let { children, class: className }: IProps = $props();
 
   let classList = twMerge([
@@ -23,9 +24,3 @@
 <section class={classList}>
   {@render children()}
 </section>
-
-<style>
-  :global pre code.hljs {
-    padding: 1em 1px 0 1em !important;
-  }
-</style>
