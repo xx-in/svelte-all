@@ -110,7 +110,7 @@
     font-size: 1.02em;
     overflow-x: auto;
     overflow-y: hidden;
-    color: oklch(63.7% 0.237 25.331);
+    color: #fb2c36 !important;
     margin: 0 0.25em;
   }
 
