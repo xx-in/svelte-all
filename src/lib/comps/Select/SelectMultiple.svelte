@@ -130,7 +130,7 @@
           {:else}
             {#each options.filter((item) => value.some((v) => isEqual(v, item.value))) as option}
               <span
-                class="flex items-center flex-none border border-stone-200 dark:border-stone-700 pl-3 pr-2 py-0.5 rounded-lg mr-2 gap-2 text-stone-500 dark:text-stone-400"
+                class="flex items-center flex-none bg-stone-100 shadow border dark:bg-stone-950 border-stone-200 dark:border-stone-700 pl-3 pr-2 py-0.5 rounded-sm mr-3 gap-2 text-stone-500 dark:text-stone-400"
               >
                 {option.label}
                 <svg
