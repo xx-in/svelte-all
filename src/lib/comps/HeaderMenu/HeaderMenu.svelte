@@ -42,16 +42,20 @@
     </button>
 
     <RightDrawer bind:visible={menuVisible} class="bg-stone-200">
-      <div class="flex flex-col gap-2 pr-3" onclick={handleHideMenu}>
+      <div
+        class="flex flex-col gap-2 pr-3
+      "
+        onclick={handleHideMenu}
+      >
         {#each routes as { text, href }, index}
           {#if index != 0}
-            <hr class=" text-stone-300" />
+            <hr class=" text-stone-300 dark:text-stone-700" />
           {/if}
           <a
             {href}
             class={twMerge([
               "p-2 text-left text-sm hover:text-blue-500",
-              activeRoute == href && "text-blue-500",
+              isActive(href) && "text-blue-500",
             ])}>{text}</a
           >
         {/each}

@@ -16,7 +16,7 @@
     "prose-p:text-lg prose-p:leading-10",
     "prose-li:text-lg prose-li:leading-10",
     "prose-pre:mb-8 prose-pre:p-0 prose-pre:relative",
-    "prose-pre:shadow prose-pre:border dark:prose-pre:border-stone-700",
+    "prose-pre:shadow prose-pre:border dark:prose-pre:border-stone-800",
     className,
   ]);
 </script>

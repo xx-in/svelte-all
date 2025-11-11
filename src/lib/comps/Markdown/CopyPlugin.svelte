@@ -18,7 +18,7 @@
 </script>
 
 <div
-  class="absolute top-0 left-0 flex w-full items-center justify-between bg-gray-100 py-2 pr-2 pl-5 dark:bg-gray-800 dark:text-gray-100 border-b border-b-gray-300 dark:border-b-gray-700"
+  class="absolute top-0 left-0 flex w-full items-center justify-between bg-gray-100 py-2 pr-2 pl-5 dark:bg-stone-800 dark:text-gray-100 border-b border-b-gray-200 dark:border-b-gray-800"
 >
   <span class="flex-1 font-semibold">{lang}</span>
   {#if isCopied}
