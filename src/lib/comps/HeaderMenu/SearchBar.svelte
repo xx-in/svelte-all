@@ -66,12 +66,12 @@
 </script>
 
 <div
-  class="flex items-center justify-end my-2 rounded-full py-1 pl-4 pr-2 bg-black/10 mx-10 border border-black/5 shadow-2xs"
+  class="flex items-center justify-center my-2 py-1 pl-4 pr-2 mx-20 min-w-1/2"
   ondblclick={(e) => e.stopPropagation()}
 >
   <input
     bind:value
-    class="text-left outline-none py-1 text-sm"
+    class="text-left outline-none py-1 text-sm flex-1"
     autofocus
     placeholder="输入搜索内容..."
     onkeydown={handleKey}
@@ -79,8 +79,8 @@
   {#each engines as engine}
     <button
       class={twMerge(
-        "flex justify-center items-center hover:bg-black/30 cursor-pointer p-1 mx-1 rounded-md",
-        lastEngine.text === engine.text && "bg-black/30",
+        "flex justify-center items-center hover:bg-blue-100 dark:hover:bg-slate-600 cursor-pointer p-1 mx-1 rounded-md",
+        lastEngine.text === engine.text && "bg-blue-100 dark:bg-slate-600",
       )}
       onclick={() => handleJump(engine)}
       title={engine.text}

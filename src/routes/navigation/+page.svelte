@@ -2,6 +2,7 @@
   import AnimatePing from "$lib/comps/AnimatePing.svelte";
   import ContextMenu, { type IContextMenuPosition } from "$lib/comps/ContextMenu.svelte";
   import HeaderMenu from "$lib/comps/HeaderMenu/HeaderMenu.svelte";
+  import SearchBar from "$lib/comps/HeaderMenu/SearchBar.svelte";
   import Layout from "$lib/comps/Layout.svelte";
   import Main from "$lib/comps/Main.svelte";
   import SvgDelete from "$lib/comps/Svg/SvgDelete.svelte";
@@ -11,7 +12,6 @@
   import { toPinyin, typedKeys } from "$lib/utils";
   import { POST } from "$lib/utils/client";
   import AppendDialog from "./LinkItemDialog.svelte";
-  import SearchBar from "./SearchBar.svelte";
   import type { ILinkItem } from "./type";
   import cloneDeep from "lodash/cloneDeep";
   import { onMount } from "svelte";
