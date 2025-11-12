@@ -1,11 +1,10 @@
 <script lang="ts">
   import { getIsDark } from "$lib/store/theme.svelte";
   import { removeStyle, setStyle } from "$lib/utils/style";
-  import Prose from "../Prose.svelte";
   import "./CopyPlugin.svelte";
+  import Prose from "./Prose.svelte";
   import hljs from "highlight.js";
   import lightTheme from "highlight.js/styles/atom-one-light.css?raw";
-  // import darkTheme from "highlight.js/styles/github-dark.min.css?raw";
   import darkTheme from "highlight.js/styles/vs2015.min.css?raw";
   import katex from "katex";
   import "katex/dist/katex.min.css";

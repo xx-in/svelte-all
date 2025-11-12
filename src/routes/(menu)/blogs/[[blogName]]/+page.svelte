@@ -1,8 +1,7 @@
 <script lang="ts">
   import DragableLayout from "$lib/comps/DragableLayout.svelte";
   import Layout from "$lib/comps/Layout.svelte";
-  import Markdown from "$lib/comps/Markdown/Markdown.svelte";
-  import MarkdownK from "$lib/comps/Markdown/MarkdownK.svelte";
+  import Remark from "$lib/comps/Markdown/Remark.svelte";
   import SvgLoading from "$lib/comps/Svg/SvgLoading.svelte";
   import type { PageProps } from "./$types";
   import { twMerge } from "tailwind-merge";
@@ -102,11 +101,7 @@
             </div>
           {:else}
             <div class="pb-10">
-              {#if selectBlog.endsWith(".k.md")}
-                <MarkdownK raw={selectBlogContent} class="max-w-full" />
-              {:else}
-                <Markdown raw={selectBlogContent} class="max-w-full"></Markdown>
-              {/if}
+              <Remark raw={selectBlogContent} class="max-w-full" />
             </div>
           {/if}
         </Layout>

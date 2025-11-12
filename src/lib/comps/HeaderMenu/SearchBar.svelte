@@ -79,7 +79,7 @@
   {#each engines as engine}
     <button
       class={twMerge(
-        "flex justify-center items-center hover:bg-blue-100 dark:hover:bg-slate-600 cursor-pointer p-1 mx-1 rounded-md",
+        "flex justify-center items-center hover:bg-blue-100 dark:hover:bg-slate-600 cursor-pointer p-1 mx-1 rounded-md text-black dark:text-white",
         lastEngine.text === engine.text && "bg-blue-100 dark:bg-slate-600",
       )}
       onclick={() => handleJump(engine)}

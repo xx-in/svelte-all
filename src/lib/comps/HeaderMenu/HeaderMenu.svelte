@@ -30,7 +30,7 @@
   }
 </script>
 
-<section class={twMerge("h-12 shadow-sm flex flex-col justify-center px-3", className)}>
+<section class={twMerge("h-12 shadow-sm flex flex-col justify-center px-3 select-none", className)}>
   <div class="flex items-center justify-between gap-2">
     <a class="flex items-center gap-1" href="/">
       <img src="/xx.svg" alt="" class="size-6" />

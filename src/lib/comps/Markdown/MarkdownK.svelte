@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getIsDark } from "$lib/store/theme.svelte";
   import { removeStyle, setStyle } from "$lib/utils/style";
-  import Prose from "../Prose.svelte";
+  import Prose from "./Prose.svelte";
   import hljs from "highlight.js";
   import lightTheme from "highlight.js/styles/atom-one-light.css?raw";
   import darkTheme from "highlight.js/styles/github-dark.min.css?raw";
