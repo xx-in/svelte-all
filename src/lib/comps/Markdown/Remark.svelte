@@ -47,7 +47,7 @@
     // 使用 rehype 处理 LaTeX 和代码高亮
     const html = await rehype()
       .use(rehypeKatex) // 处理 LaTeX
-      .use(rehypePrism, { plugins: ["toolbar", "line-numbers", "copy-to-clipboard"] }) // 使用 Prism 进行代码高亮
+      // .use(rehypePrism, { plugins: ["toolbar", "line-numbers", "copy-to-clipboard"] }) // 使用 Prism 进行代码高亮
       .process(String(file));
 
     htmlContent = String(html); // 将解析后的 HTML 内容赋给 htmlContent
