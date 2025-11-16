@@ -16,20 +16,20 @@ $$
 \min_{x \in \mathbb{R}^n} f(x)
 $$
 
-若存在点 $x^\*$，使得对于任意的 $x$，都有：
+若存在点 $x^*$，使得对于任意的 $x$，都有：
 
 $$
-f(x^\*) \le f(x),
+f(x^*) \le f(x),
 $$
 
-则称 $x^\*$ 为 **最优点（Optimal Point）**，对应的 $f(x^\*)$ 为 **最优值（Optimal Value）**。
+则称 $x^*$ 为 **最优点（Optimal Point）**，对应的 $f(x^*)$ 为 **最优值（Optimal Value）**。
 
 ### 2、充要条件
 
-若 $f(x)$ 在 $x^\*$ 处二阶可微：
+若 $f(x)$ 在 $x^*$ 处二阶可微：
 
 $$
-\nabla f(x^\*) = 0, \quad \nabla^2 f(x^\*) \succ 0 \Longleftrightarrow f(x^*)\text{为局部最小点}
+\nabla f(x^*) = 0, \quad \nabla^2 f(x^*) \succ 0 \Longleftrightarrow f(x^*)\text{为局部最小点}
 $$
 
 换句话说，对于二阶可微函数$f(x)$，如果满足以下条件，那么就可以精准计算最优值：
@@ -92,13 +92,13 @@ $$
 
 ### 1、 定义
 
-若存在可行点 $x^\*$ 满足所有约束，且对任意可行点 $x$ 有
+若存在可行点 $x^*$ 满足所有约束，且对任意可行点 $x$ 有
 
 $$
-f(x^\*) \le f(x),
+f(x^*) \le f(x),
 $$
 
-则称 $x^\*$ 为 **约束最优解**。
+则称 $x^*$ 为 **约束最优解**。
 
 ---
 
@@ -125,11 +125,11 @@ $$
 
 $$
 \begin{cases}
-\nabla_x \mathcal{L}(x^\*, w^\*, v^\*) = 0 \quad (\text{拉格朗日梯度})\\
-g_i(x^\*) \ge 0, \quad (\text{原不等式约束})\\
-h_j(x^\*) = 0 \quad (\text{原等式约束})\\
-w_i^\* g_i(x^\*) = 0  \quad (\text{互补松弛}) \\
-w_i^\* \ge 0, \quad (\text{互补松弛的决策变量}) \\
+\nabla_x \mathcal{L}(x^*, w^*, v^*) = 0 \quad (\text{拉格朗日梯度})\\
+g_i(x^*) \ge 0, \quad (\text{原不等式约束})\\
+h_j(x^*) = 0 \quad (\text{原等式约束})\\
+w_i^* g_i(x^*) = 0  \quad (\text{互补松弛}) \\
+w_i^* \ge 0, \quad (\text{互补松弛的决策变量}) \\
 \end{cases}
 $$
 
